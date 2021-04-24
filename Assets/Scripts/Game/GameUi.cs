@@ -13,6 +13,7 @@ namespace Game
         [SerializeField] private TextMeshProUGUI _gemText;
         [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _depthArrow;
+        [SerializeField] private RectTransform _returnButton;
         
         public AnimationCurve SliderMoveCurve;
         private const float _sliderMoveDuration = 0.5f;
@@ -65,6 +66,15 @@ namespace Game
                     _depthArrow.anchoredPosition = targetPos;
                 });
         }
+
+        public void ShowReturnButton()
+        {
+            _returnButton.gameObject.SetActive(true);
+        }
         
+        public void HideReturnButton()
+        {
+            _returnButton.gameObject.SetActive(false);
+        }
     }
 }

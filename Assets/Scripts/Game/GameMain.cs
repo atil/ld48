@@ -21,7 +21,6 @@ namespace Game
         public TileGenerator TileGenerator;
         public Transform TileRoot;
         public Transform BackgroundRoot;
-        public Transform ReturnButton;
         public int ShowReturnButtonAt = 5;
         public GameObject Cursor;
         public HashSet<Tile> HoveredTiles = new HashSet<Tile>();
@@ -211,9 +210,9 @@ namespace Game
             Player.transform.position = playerTarget;
             _isMoving = false;
 
-            if (PlayerRowIndex > ShowReturnButtonAt && ReturnButton != null)
+            if (PlayerRowIndex > ShowReturnButtonAt && !OnReturnStage)
             {
-                ReturnButton.gameObject.SetActive(true);
+                GameUi.ShowReturnButton();
             }
 
             if (PlayerRowIndex == 0 && OnReturnStage)
@@ -232,6 +231,10 @@ namespace Game
 
         public void OnReturnButtonClicked()
         {
+            if (OnReturnStage)
+            {
+                return;
+            }
             _isMoving = true;
             const float moveDuration = 1.5f;
             int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - PlayerRowIndex); 
