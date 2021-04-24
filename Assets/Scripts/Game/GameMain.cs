@@ -69,7 +69,7 @@ namespace Game
                 yield break; // Can't go down or sideways when travelling up
             }
 
-            _playerRowIndex = Direction == GameDirection.Down ? _playerRowIndex + 1 : _playerRowIndex - 1;
+            _playerRowIndex = tile.Index.i;
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
