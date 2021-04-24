@@ -17,6 +17,7 @@ namespace Game
         public AnimationCurve MoveCurve;
         public GameUi GameUi;
         public TileGenerator TileGenerator;
+        public Transform TileRoot;
 
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
@@ -63,12 +64,16 @@ namespace Game
             
             GameUi.SetGem(Gem);
             
-            Vector3 srcPos = Player.transform.position;
-            Vector3 targetTilePos = tile.transform.position;
+            Vector3 playerSrc = Player.transform.position;
+            Vector3 playerTarget = tile.transform.position;
             
             _tiles[tile.Index.i][tile.Index.j] = null;
             Destroy(tile.gameObject);
 
+            // 
+            // First, move the player to the target tile
+            // 
+            
             _isMoving = true;
             const float moveDuration = 0.5f;
             CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
@@ -76,10 +81,40 @@ namespace Game
                 moveDuration,
                 t =>
                 {
-                    Player.transform.position = Vector3.Lerp(srcPos, targetTilePos, t);
+                    Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
                 });
             
-            Player.transform.position = targetTilePos;
+            // 
+            // Then, move all tiles (and the player upwards
+            // 
+
+            const float spaceBetweenTiles = 1.5f;
+            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles;
+            Vector3 tileRootSrc = TileRoot.position;
+            Vector3 tileRootTarget = TileRoot.position + scrollAmount;
+            
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    TileRoot.position = Vector3.Lerp(tileRootSrc, tileRootTarget, t);
+                },
+                () => { });
+
+            playerSrc = Player.transform.position;
+            playerTarget = playerSrc + scrollAmount;
+            
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
+                },
+                () => { });
+            
+            yield return new WaitForSeconds(moveDuration);
+            
+            Player.transform.position = playerTarget;
             _isMoving = false;
             
             if (Oxygen == 0)

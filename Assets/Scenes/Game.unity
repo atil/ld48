@@ -178,6 +178,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   GameUi: {fileID: 1470214248}
   TileGenerator: {fileID: 57379106}
+  TileRoot: {fileID: 1845988359}
   Oxygen: 10
   Direction: 1
   Gem: 0
