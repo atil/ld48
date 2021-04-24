@@ -42,10 +42,12 @@ namespace Game
             else if (Type == TileType.Oxygen)
             {
                 _game.Oxygen += Value;
+                _game.Oxygen = Mathf.Clamp(_game.Oxygen, 0, _game.MaxOxygen);
             }
             else if (Type == TileType.Shark)
             {
                 _game.Oxygen -= Value;
+                _game.Oxygen = Mathf.Clamp(_game.Oxygen, 0, _game.MaxOxygen);
             }
             else if (Type == TileType.Gem)
             {

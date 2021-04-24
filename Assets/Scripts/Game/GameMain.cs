@@ -26,6 +26,7 @@ namespace Game
         public GameObject Cursor;
         public HashSet<Tile> HoveredTiles = new HashSet<Tile>();
 
+        public int MaxOxygen = 16;
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
         public int Gem = 0;
@@ -46,7 +47,8 @@ namespace Game
         
         private void Start()
         {
-            GameUi.SetOxygen(Oxygen);
+            Oxygen = MaxOxygen;
+            GameUi.SetOxygen(MaxOxygen);
 
             var initialTiles = TileGenerator.GenerateTiles(RowCount, ColumnCount);
             
