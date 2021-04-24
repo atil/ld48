@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -27,12 +25,12 @@ namespace Game
         
         private void OnMouseEnter()
         {
-            
+            _game.HoveredTiles.Add(this);
         }
         
         private void OnMouseExit()
         {
-            
+            _game.HoveredTiles.Remove(this);
         }
 
         private void OnMouseDown()
@@ -59,6 +57,11 @@ namespace Game
             }
             
             CoroutineStarter.Run(_game.OnTileClicked(this));
+        }
+
+        private void OnDestroy()
+        {
+            _game.HoveredTiles.Remove(this);
         }
     }
 }
