@@ -17,7 +17,7 @@ namespace Game
 
         public void SetOxygen(int oxy)
         {
-            _oxygenText.text = $"O2: {oxy.ToString()}";
+            _oxygenText.text = $"{oxy.ToString()}";
         }
         
         public void SetGem(int gem)
