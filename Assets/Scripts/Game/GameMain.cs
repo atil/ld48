@@ -40,7 +40,7 @@ namespace Game
 
             var initialTiles = TileGenerator.GenerateTiles(RowCount, ColumnCount);
             
-            Player.PlayIdleAnim(Direction);
+            Player.PlayIdleAnim(GameDirection.Up);
             
             for (int i = 0; i < RowCount; i++)
             {
