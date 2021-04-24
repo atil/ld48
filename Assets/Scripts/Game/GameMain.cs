@@ -47,6 +47,8 @@ namespace Game
         
         private void Start()
         {
+            ResultData.Instance.Clear();
+
             Oxygen = MaxOxygen;
             GameUi.SetOxygen(MaxOxygen);
 
@@ -211,12 +213,14 @@ namespace Game
 
             if (PlayerRowIndex == 0 && OnReturnStage)
             {
-                print("You won!");
+                ResultData.Instance.HasWon = true;
+                ResultData.Instance.Score = Gem;
                 SceneManager.LoadScene("End"); // TODO: Smooth transition
             }
             
             if (Oxygen == 0)
             {
+                ResultData.Instance.HasWon = false;
                 SceneManager.LoadScene("End"); // TODO: Smooth transition
             }
         }
