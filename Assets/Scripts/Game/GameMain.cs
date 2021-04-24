@@ -32,6 +32,7 @@ namespace Game
         public int ColumnCount = 5;
         public float OffsetBetweenTiles = 1.5f;
         public int PlayerRowIndex = -1;
+        public int PlayerColumnIndex = 2;
 
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
@@ -87,6 +88,11 @@ namespace Game
                 return false; // Can't go down or sideways when travelling up
             }
 
+            if (Mathf.Abs(PlayerColumnIndex - tile.Index.j) > 1)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -104,6 +110,7 @@ namespace Game
 
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
+            PlayerColumnIndex = tile.Index.j;
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
