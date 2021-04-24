@@ -3,3 +3,6 @@ https://www.kenney.nl/assets/platformer-pack-redux
 
 Water+ by ninjikin
 https://ninjikin.itch.io/water
+
+Font "PixelMix" by Andrew Tyler
+https://www.dafont.com/pixelmix.font

@@ -30,6 +30,7 @@ namespace Game
         
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
+        private int _playerRowIndex = -1;
         
         private void Start()
         {
@@ -57,8 +58,18 @@ namespace Game
             {
                 yield break;
             }
+
+            if (Direction == GameDirection.Down && _playerRowIndex >= tile.Index.i)
+            {
+                yield break; // Can't go up or sideways while travelling down
+            }
             
-            // TODO: Click only on the tiles below
+            if (Direction == GameDirection.Up && _playerRowIndex <= tile.Index.i)
+            {
+                yield break; // Can't go down or sideways when travelling up
+            }
+
+            _playerRowIndex = Direction == GameDirection.Down ? _playerRowIndex + 1 : _playerRowIndex - 1;
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
