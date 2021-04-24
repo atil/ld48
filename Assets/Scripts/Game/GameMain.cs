@@ -18,6 +18,7 @@ namespace Game
         public GameUi GameUi;
         public TileGenerator TileGenerator;
         public Transform TileRoot;
+        public Transform BackgroundRoot;
 
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
@@ -85,7 +86,10 @@ namespace Game
                 });
             
             // 
-            // Then, move all tiles (and the player) upwards
+            // Then, move these upwards
+            // - Tiles
+            // - Player
+            // - Background
             // 
 
             const float spaceBetweenTiles = 1.5f;
@@ -109,6 +113,16 @@ namespace Game
                 t =>
                 {
                     Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
+                },
+                () => { });
+
+            Vector3 backgroundSrc = BackgroundRoot.position;
+            Vector3 backgroundTarget = BackgroundRoot.position + scrollAmount;
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    BackgroundRoot.position = Vector3.Lerp(backgroundSrc, backgroundTarget, t);
                 },
                 () => { });
 
