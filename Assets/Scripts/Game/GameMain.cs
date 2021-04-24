@@ -27,10 +27,10 @@ namespace Game
         public int RowCount = 4;
         public int ColumnCount = 5;
         public float OffsetBetweenTiles = 1.5f;
-        
+        public int PlayerRowIndex = -1;
+
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
-        private int _playerRowIndex = -1;
 
         public bool OnReturnStage = false;
         
@@ -61,18 +61,18 @@ namespace Game
                 yield break;
             }
 
-            if (Direction == GameDirection.Down && _playerRowIndex >= tile.Index.i)
+            if (Direction == GameDirection.Down && PlayerRowIndex >= tile.Index.i)
             {
                 yield break; // Can't go up or sideways while travelling down
             }
             
-            if (Direction == GameDirection.Up && _playerRowIndex <= tile.Index.i)
+            if (Direction == GameDirection.Up && PlayerRowIndex <= tile.Index.i)
             {
                 yield break; // Can't go down or sideways when travelling up
             }
 
-            int amountOfMovement = Mathf.Abs(tile.Index.i - _playerRowIndex);
-            _playerRowIndex = tile.Index.i;
+            int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
+            PlayerRowIndex = tile.Index.i;
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
@@ -159,7 +159,7 @@ namespace Game
             Player.transform.position = playerTarget;
             _isMoving = false;
 
-            if (_playerRowIndex == 0 && OnReturnStage)
+            if (PlayerRowIndex == 0 && OnReturnStage)
             {
                 print("You won!");
                 SceneManager.LoadScene("End"); // TODO: Smooth transition
@@ -175,7 +175,7 @@ namespace Game
         {
             _isMoving = true;
             const float moveDuration = 1.5f;
-            int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - _playerRowIndex); 
+            int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - PlayerRowIndex); 
 
             Direction = GameDirection.Up;
             

@@ -26,10 +26,5 @@ namespace Game
         {
             _gemText.text = $"{gem.ToString()}";
         }
-
-        public void OnReturnButtonClicked()
-        {
-            _returnButton.gameObject.SetActive(false);
-        }
     }
 }
