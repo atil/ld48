@@ -69,6 +69,7 @@ namespace Game
                 yield break; // Can't go down or sideways when travelling up
             }
 
+            int amountOfMovement = Mathf.Abs(tile.Index.i - _playerRowIndex);
             _playerRowIndex = tile.Index.i;
 
             Oxygen--;
@@ -78,7 +79,7 @@ namespace Game
             
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
-            
+
             _tiles[tile.Index.i][tile.Index.j] = null;
             Destroy(tile.gameObject);
 
@@ -104,7 +105,7 @@ namespace Game
             // 
 
             const float spaceBetweenTiles = 1.5f;
-            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles;
+            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
             Vector3 tileRootSrc = TileRoot.position;
             Vector3 tileRootTarget = TileRoot.position + scrollAmount;
             
@@ -139,14 +140,17 @@ namespace Game
 
             // Generate new row
 
-            var newRow = TileGenerator.GenerateRow(ColumnCount);
-            for (int i = 0; i < ColumnCount; i++)
+            for (int j = 0; j < amountOfMovement; j++)
             {
-                newRow[i].Index = (_tiles.Count, i);
-                newRow[i].transform.localPosition = new Vector3(i * OffsetBetweenTiles, _tiles.Count * -1 * OffsetBetweenTiles, 0);
-            }
+                var newRow = TileGenerator.GenerateRow(ColumnCount);
+                for (int i = 0; i < ColumnCount; i++)
+                {
+                    newRow[i].Index = (_tiles.Count, i);
+                    newRow[i].transform.localPosition = new Vector3(i * OffsetBetweenTiles, _tiles.Count * -1 * OffsetBetweenTiles, 0);
+                }
 
-            _tiles.Add(newRow);
+                _tiles.Add(newRow);
+            }
             
             yield return new WaitForSeconds(moveDuration);
             
