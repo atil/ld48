@@ -11,6 +11,6 @@ public class ReturnButton : MonoBehaviour
 	private void OnMouseDown()
 	{
 		Main.OnReturnButtonClicked();
-		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 }
