@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 namespace Game
 {
+    public enum GameDirection
+    {
+        Up, Down
+    }
+    
     public class GameMain : MonoBehaviour
     {
         public Player Player;
@@ -14,6 +19,7 @@ namespace Game
         public TileGenerator TileGenerator;
 
         public int Oxygen = 10;
+        public GameDirection Direction = GameDirection.Down;
         public int Gem = 0;
 
         public int RowCount = 4;
@@ -28,6 +34,8 @@ namespace Game
             GameUi.SetOxygen(Oxygen);
 
             var initialTiles = TileGenerator.GenerateTiles(RowCount, ColumnCount);
+            
+            Player.PlayIdleAnim(Direction);
             
             for (int i = 0; i < RowCount; i++)
             {
@@ -62,8 +70,10 @@ namespace Game
             Destroy(tile.gameObject);
 
             _isMoving = true;
+            const float moveDuration = 0.5f;
+            CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
             yield return Curve.Tween(MoveCurve,
-                0.5f,
+                moveDuration,
                 t =>
                 {
                     Player.transform.position = Vector3.Lerp(srcPos, targetTilePos, t);
@@ -74,7 +84,7 @@ namespace Game
             
             if (Oxygen == 0)
             {
-                SceneManager.LoadScene("End");
+                SceneManager.LoadScene("End"); // TODO: Smooth transition
             }
         }
     }

@@ -179,6 +179,7 @@ MonoBehaviour:
   GameUi: {fileID: 1470214248}
   TileGenerator: {fileID: 57379106}
   Oxygen: 10
+  Direction: 1
   Gem: 0
   RowCount: 4
   ColumnCount: 5
@@ -229,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &538998849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +460,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -532,6 +533,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01b27ce952f45bea98e56175099d72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Visual: {fileID: 1467663127}
+  MoveSprites:
+  - {fileID: 21300000, guid: 4076e7e05975fb8458506c55ec0bea52, type: 3}
+  - {fileID: 21300000, guid: bd1862a763e364544a9e4334c2d19ef7, type: 3}
+  - {fileID: 21300000, guid: a71211d82afed1242a179220776e0b7a, type: 3}
+  IdleSprites:
+  - {fileID: 21300000, guid: 4076e7e05975fb8458506c55ec0bea52, type: 3}
+  - {fileID: 21300000, guid: bd1862a763e364544a9e4334c2d19ef7, type: 3}
+  - {fileID: 21300000, guid: a71211d82afed1242a179220776e0b7a, type: 3}
 --- !u!212 &1467663127
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -863,8 +873,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
