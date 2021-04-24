@@ -22,7 +22,7 @@ namespace Game
         
         public void SetGem(int gem)
         {
-            _gemText.text = $"Gem: {gem.ToString()}";
+            _gemText.text = $"{gem.ToString()}";
         }
     }
 }
