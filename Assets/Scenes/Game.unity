@@ -426,6 +426,8 @@ MonoBehaviour:
   TileGenerator: {fileID: 57379106}
   TileRoot: {fileID: 1845988359}
   BackgroundRoot: {fileID: 355165664}
+  ReturnButton: {fileID: 191242264}
+  ShowReturnButtonAt: 5
   Oxygen: 10
   Direction: 1
   Gem: 0
@@ -433,6 +435,8 @@ MonoBehaviour:
   ColumnCount: 5
   OffsetBetweenTiles: 1.5
   PlayerRowIndex: -1
+  VerticalRange: 1
+  HorizontalRange: 1
   OnReturnStage: 0
 --- !u!4 &57379105
 Transform:
@@ -972,7 +976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &191242264
 Transform:
   m_ObjectHideFlags: 0
@@ -1013,11 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f039f7c95fbe4814baced2c7e3fa54a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsClicked: 0
   Main: {fileID: 57379104}
-  Visual: {fileID: 1532693593}
-  IsEnabled: 0
-  EnableAt: 5
 --- !u!1 &197695963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6834,7 +6834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1532693594
 Transform:
   m_ObjectHideFlags: 0

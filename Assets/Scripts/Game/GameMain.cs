@@ -19,6 +19,8 @@ namespace Game
         public TileGenerator TileGenerator;
         public Transform TileRoot;
         public Transform BackgroundRoot;
+        public Transform ReturnButton;
+        public int ShowReturnButtonAt = 5;
 
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
@@ -28,6 +30,9 @@ namespace Game
         public int ColumnCount = 5;
         public float OffsetBetweenTiles = 1.5f;
         public int PlayerRowIndex = -1;
+
+        public int VerticalRange = 1;
+        public int HorizontalRange = 1;
 
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
@@ -61,7 +66,7 @@ namespace Game
                 yield break;
             }
 
-            if (Direction == GameDirection.Down && PlayerRowIndex >= tile.Index.i)
+            if (Direction == GameDirection.Down && PlayerRowIndex == tile.Index.i)
             {
                 yield break; // Can't go up or sideways while travelling down
             }
@@ -158,6 +163,11 @@ namespace Game
             
             Player.transform.position = playerTarget;
             _isMoving = false;
+
+            if (PlayerRowIndex > ShowReturnButtonAt)
+            {
+                ReturnButton.gameObject.SetActive(true);
+            }
 
             if (PlayerRowIndex == 0 && OnReturnStage)
             {
