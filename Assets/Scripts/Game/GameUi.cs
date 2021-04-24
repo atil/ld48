@@ -12,6 +12,8 @@ namespace Game
         [SerializeField] private TextMeshProUGUI _oxygenText;
         [SerializeField] private TextMeshProUGUI _gemText;
         [SerializeField] private Slider _slider;
+        [SerializeField] private RectTransform _depthArrow;
+
         
         public AnimationCurve SliderMoveCurve;
         private const float _sliderMoveDuration = 0.5f;
@@ -43,5 +45,15 @@ namespace Game
         {
             _gemText.text = $"{gem.ToString()}";
         }
+
+        public void SetDepth(int depthIndex)
+        {
+            const int maxDepth = 150; // Source: depths of my ass
+
+            Vector2 pos = _depthArrow.anchoredPosition;
+            pos.y = -540 * (float) depthIndex / maxDepth;
+            _depthArrow.anchoredPosition = pos;
+        }
+        
     }
 }

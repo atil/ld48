@@ -116,10 +116,15 @@ namespace Game
             {
                 yield break;
             }
+            
+            //
+            // Move is valid. Change stuff here
+            //
 
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
             PlayerColumnIndex = tile.Index.j;
+            GameUi.SetDepth(PlayerRowIndex);
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
