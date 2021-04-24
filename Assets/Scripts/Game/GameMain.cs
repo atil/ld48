@@ -202,7 +202,7 @@ namespace Game
             Player.transform.position = playerTarget;
             _isMoving = false;
 
-            if (PlayerRowIndex > ShowReturnButtonAt)
+            if (PlayerRowIndex > ShowReturnButtonAt && ReturnButton != null)
             {
                 ReturnButton.gameObject.SetActive(true);
             }
