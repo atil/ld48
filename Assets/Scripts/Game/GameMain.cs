@@ -8,13 +8,17 @@ namespace Game
 {
     public class GameMain : MonoBehaviour
     {
-        public List<Tile> TempTiles;
         public Player Player;
         public AnimationCurve MoveCurve;
         public GameUi GameUi;
+        public TileGenerator TileGenerator;
 
         public int Oxygen = 10;
         public int Gem = 0;
+
+        public int RowCount = 4;
+        public int ColumnCount = 5;
+        public float OffsetBetweenTiles = 1.5f;
         
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
@@ -22,14 +26,17 @@ namespace Game
         private void Start()
         {
             GameUi.SetOxygen(Oxygen);
+
+            var initialTiles = TileGenerator.GenerateTiles(RowCount, ColumnCount);
             
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < RowCount; i++)
             {
-                _tiles.Add(new Tile[4]);
-                for (int j = 0; j < 4; j++)
+                _tiles.Add(new Tile[ColumnCount]);
+                for (int j = 0; j < ColumnCount; j++)
                 {
-                    _tiles[i][j] = TempTiles[i * 4 + j];
+                    _tiles[i][j] = initialTiles[i * ColumnCount + j];
                     _tiles[i][j].Index = (i, j);
+                    _tiles[i][j].transform.localPosition = new Vector3(j * OffsetBetweenTiles, i * -1 * OffsetBetweenTiles, 0);
                 }
             }
         }
