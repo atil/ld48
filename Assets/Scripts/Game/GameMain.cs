@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JamKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +21,8 @@ namespace Game
         public TileGenerator TileGenerator;
         public Transform TileRoot;
         public Transform BackgroundRoot;
+        public GameObject Cursor;
+        public HashSet<Tile> HoveredTiles = new HashSet<Tile>();
 
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
@@ -54,6 +58,38 @@ namespace Game
             }
         }
 
+        private void Update()
+        {
+            if (HoveredTiles.Count == 1)
+            {
+                Tile tile = HoveredTiles.First();
+                if (IsTileMovable(tile))
+                {
+                    Cursor.SetActive(true);
+                    Cursor.transform.position = tile.transform.position;
+                }
+            }
+            else
+            {
+                Cursor.SetActive(false);
+            }
+        }
+
+        private bool IsTileMovable(Tile tile)
+        {
+            if (Direction == GameDirection.Down && PlayerRowIndex != tile.Index.i - 1)
+            {
+                return false; // Can't go up or sideways while travelling down
+            }
+            
+            if (Direction == GameDirection.Up && PlayerRowIndex != tile.Index.i + 1)
+            {
+                return false; // Can't go down or sideways when travelling up
+            }
+
+            return true;
+        }
+
         public IEnumerator OnTileClicked(Tile tile)
         {
             if (_isMoving)
@@ -61,14 +97,9 @@ namespace Game
                 yield break;
             }
 
-            if (Direction == GameDirection.Down && PlayerRowIndex >= tile.Index.i)
+            if (!IsTileMovable(tile))
             {
-                yield break; // Can't go up or sideways while travelling down
-            }
-            
-            if (Direction == GameDirection.Up && PlayerRowIndex <= tile.Index.i)
-            {
-                yield break; // Can't go down or sideways when travelling up
+                yield break;
             }
 
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
