@@ -83,17 +83,17 @@ namespace Game
 
         private bool IsTileMovable(Tile tile)
         {
-            if (Direction == GameDirection.Down && PlayerRowIndex != tile.Index.i - 1)
+            if (Direction == GameDirection.Down && PlayerRowIndex != tile.Index.i - VerticalRange)
             {
                 return false; // Can't go up or sideways while travelling down
             }
             
-            if (Direction == GameDirection.Up && PlayerRowIndex != tile.Index.i + 1)
+            if (Direction == GameDirection.Up && PlayerRowIndex != tile.Index.i + VerticalRange)
             {
                 return false; // Can't go down or sideways when travelling up
             }
 
-            if (Mathf.Abs(PlayerColumnIndex - tile.Index.j) > 1)
+            if (Mathf.Abs(PlayerColumnIndex - tile.Index.j) > HorizontalRange)
             {
                 return false;
             }
