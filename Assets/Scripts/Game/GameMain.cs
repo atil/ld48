@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using JamKit;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game
 {
@@ -10,12 +12,17 @@ namespace Game
         public List<Tile> TempTiles;
         public Player Player;
         public AnimationCurve MoveCurve;
+        public GameUi GameUi;
+
+        public int Oxygen = 10;
         
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
         
         private void Start()
         {
+            GameUi.SetOxygen(Oxygen);
+            
             for (int i = 0; i < 5; i++)
             {
                 _tiles.Add(new Tile[4]);
@@ -28,12 +35,17 @@ namespace Game
             
         }
 
-        public void OnTileClicked(Tile tile)
+        public IEnumerator OnTileClicked(Tile tile)
         {
             if (_isMoving)
             {
-                return;
+                yield break;
             }
+            
+            // TODO: Click only on the tiles below
+
+            Oxygen--;
+            GameUi.SetOxygen(Oxygen);
             
             Vector3 srcPos = Player.transform.position;
             Vector3 targetTilePos = tile.transform.position;
@@ -42,17 +54,20 @@ namespace Game
             Destroy(tile.gameObject);
 
             _isMoving = true;
-            Curve.Tween(MoveCurve,
+            yield return Curve.Tween(MoveCurve,
                 0.5f,
                 t =>
                 {
                     Player.transform.position = Vector3.Lerp(srcPos, targetTilePos, t);
-                },
-                () =>
-                {
-                    Player.transform.position = targetTilePos;
-                    _isMoving = false;
                 });
+            
+            Player.transform.position = targetTilePos;
+            _isMoving = false;
+            
+            if (Oxygen == 0)
+            {
+                SceneManager.LoadScene("End");
+            }
         }
     }
 }

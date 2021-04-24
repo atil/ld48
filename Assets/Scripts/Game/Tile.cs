@@ -24,7 +24,7 @@ namespace Game
 
         private void OnMouseDown()
         {
-            _game.OnTileClicked(this);
+            CoroutineStarter.Run(_game.OnTileClicked(this));
         }
     }
 }
