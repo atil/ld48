@@ -158,5 +158,14 @@ namespace Game
                 SceneManager.LoadScene("End"); // TODO: Smooth transition
             }
         }
+
+        public void OnReturnButtonClicked()
+        {
+            _isMoving = true;
+            
+            Direction = GameDirection.Up;
+
+            _isMoving = false;
+        }
     }
 }
