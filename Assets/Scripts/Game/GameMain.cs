@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using JamKit;
 using UnityEngine;
@@ -32,7 +31,6 @@ namespace Game
                     _tiles[i][j].Index = (i, j);
                 }
             }
-            
         }
 
         public IEnumerator OnTileClicked(Tile tile)
