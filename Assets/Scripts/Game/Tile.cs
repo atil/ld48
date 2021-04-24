@@ -7,7 +7,8 @@ namespace Game
     {
         Water,
         Oxygen,
-        Shark
+        Shark,
+        Gem
     }
     public class Tile : MonoBehaviour
     {
@@ -35,11 +36,9 @@ namespace Game
 
         private void OnMouseDown()
         {
-            CoroutineStarter.Run(_game.OnTileClicked(this));
-
             if (Type == TileType.Water)
             {
-                
+                // No Effect on water
             }
             else if (Type == TileType.Oxygen)
             {
@@ -49,6 +48,16 @@ namespace Game
             {
                 _game.Oxygen -= Value;
             }
+            else if (Type == TileType.Gem)
+            {
+                _game.Gem += Value;
+            }
+            else
+            {
+                Debug.LogError("Tile Type not found");
+            }
+            
+            CoroutineStarter.Run(_game.OnTileClicked(this));
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Game
         public GameUi GameUi;
 
         public int Oxygen = 10;
+        public int Gem = 0;
         
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
@@ -44,6 +45,8 @@ namespace Game
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
+            
+            GameUi.SetGem(Gem);
             
             Vector3 srcPos = Player.transform.position;
             Vector3 targetTilePos = tile.transform.position;

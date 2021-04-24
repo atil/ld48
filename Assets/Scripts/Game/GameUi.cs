@@ -8,6 +8,7 @@ namespace Game
     {
         [SerializeField] private FlashInfo _openFlashInfo;
         [SerializeField] private TextMeshProUGUI _oxygenText;
+        [SerializeField] private TextMeshProUGUI _gemText;
         
         void Start()
         {
@@ -17,6 +18,11 @@ namespace Game
         public void SetOxygen(int oxy)
         {
             _oxygenText.text = $"O2: {oxy.ToString()}";
+        }
+        
+        public void SetGem(int gem)
+        {
+            _gemText.text = $"Gem: {gem.ToString()}";
         }
     }
 }
