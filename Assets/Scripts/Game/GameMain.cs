@@ -31,6 +31,8 @@ namespace Game
         private List<Tile[]> _tiles = new List<Tile[]>();
         private bool _isMoving;
         private int _playerRowIndex = -1;
+
+        public bool OnReturnStage = false;
         
         private void Start()
         {
@@ -156,6 +158,12 @@ namespace Game
             
             Player.transform.position = playerTarget;
             _isMoving = false;
+
+            if (_playerRowIndex == 0 && OnReturnStage)
+            {
+                print("You won!");
+                SceneManager.LoadScene("End"); // TODO: Smooth transition
+            }
             
             if (Oxygen == 0)
             {
@@ -207,6 +215,8 @@ namespace Game
                 },
                 () => { });
 
+            OnReturnStage = true;
+            
             _isMoving = false;
         }
     }
