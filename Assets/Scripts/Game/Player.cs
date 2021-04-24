@@ -63,7 +63,7 @@ namespace Game
             float secondsPerFrame = 1f / framesPerSecond;
             int i = 0;
             float frameTimer = 0;
-            for (float f = 0f; f < duration; f += Time.deltaTime, frameTimer += Time.deltaTime)
+            for (float f = 0f; f < duration && this != null && gameObject != null; f += Time.deltaTime, frameTimer += Time.deltaTime)
             {
                 if (frameTimer > secondsPerFrame)
                 {
