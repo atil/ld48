@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Game;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -43,15 +42,7 @@ public class TileGenerator : MonoBehaviour
         {
             for (int j = 0; j < columnAmount; j++)
             {
-                var newTile = Instantiate(TilePrefab, transform.position, Quaternion.identity);
-                newTile.parent = TileRoot;
-                
-                var tileData = newTile.GetComponent<Tile>();
-                tileData.Type = (TileType)Random.Range(0, 4);
-                tileData.Value = Random.Range(1, 4);
-                
-                newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[tileData.Type];
-                
+                var newTile = CreateRandomTile();
                 result.Add(newTile.GetComponent<Tile>());
             }
         }
@@ -59,16 +50,28 @@ public class TileGenerator : MonoBehaviour
         return result;
     }
 
-    public Tile[] GenerateRow()
+    public Tile[] GenerateRow(int columnAmount)
     {
-        Tile[] result = new Tile[4]; 
-        for (int i = 0; i < 4; i++)
+        Tile[] result = new Tile[columnAmount]; 
+        for (int i = 0; i < columnAmount; i++)
         {
-            var newTile = Instantiate(TilePrefab, transform.position, Quaternion.identity);
-            newTile.parent = TileRoot;
-            result[i] = newTile.GetComponent<Tile>();
+            var newTile = CreateRandomTile();
+            result[i] = newTile;
         }
 
         return result;
+    }
+
+    private Tile CreateRandomTile()
+    {
+        var newTile = Instantiate(TilePrefab, transform.position, Quaternion.identity);
+        newTile.parent = TileRoot;
+
+        var tileData = newTile.GetComponent<Tile>();
+        tileData.Type = (TileType) Random.Range(0, 4);
+        tileData.Value = Random.Range(1, 4);
+
+        newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[tileData.Type];
+        return newTile.GetComponent<Tile>();
     }
 }

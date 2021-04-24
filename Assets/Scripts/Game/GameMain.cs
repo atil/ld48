@@ -85,7 +85,7 @@ namespace Game
                 });
             
             // 
-            // Then, move all tiles (and the player upwards
+            // Then, move all tiles (and the player) upwards
             // 
 
             const float spaceBetweenTiles = 1.5f;
@@ -111,6 +111,17 @@ namespace Game
                     Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
                 },
                 () => { });
+
+            // Generate new row
+
+            var newRow = TileGenerator.GenerateRow(ColumnCount);
+            for (int i = 0; i < ColumnCount; i++)
+            {
+                newRow[i].Index = (_tiles.Count, i);
+                newRow[i].transform.localPosition = new Vector3(i * OffsetBetweenTiles, _tiles.Count * -1 * OffsetBetweenTiles, 0);
+            }
+
+            _tiles.Add(newRow);
             
             yield return new WaitForSeconds(moveDuration);
             
