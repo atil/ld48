@@ -2914,7 +2914,7 @@ RectTransform:
   - {fileID: 2129807272}
   - {fileID: 1926844270}
   m_Father: {fileID: 1470214252}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -6967,6 +6967,30 @@ MonoBehaviour:
   _oxygenText: {fileID: 1018013562}
   _gemText: {fileID: 622235710}
   _slider: {fileID: 1261637665}
+  SliderMoveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1470214249
 MonoBehaviour:
   m_ObjectHideFlags: 0
