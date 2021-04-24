@@ -166,8 +166,46 @@ namespace Game
         public void OnReturnButtonClicked()
         {
             _isMoving = true;
-            
+            const float moveDuration = 1.5f;
+            int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - _playerRowIndex); 
+
             Direction = GameDirection.Up;
+            
+            CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
+            
+            const float spaceBetweenTiles = 1.5f;
+            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
+            Vector3 tileRootSrc = TileRoot.position;
+            Vector3 tileRootTarget = TileRoot.position + scrollAmount;
+            
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    TileRoot.position = Vector3.Lerp(tileRootSrc, tileRootTarget, t);
+                },
+                () => { });
+            
+            Vector3 playerSrc = Player.transform.position;
+            Vector3 playerTarget = playerSrc + scrollAmount;
+            
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
+                },
+                () => { });
+
+            Vector3 backgroundSrc = BackgroundRoot.position;
+            Vector3 backgroundTarget = BackgroundRoot.position + scrollAmount;
+            Curve.Tween(MoveCurve,
+                moveDuration,
+                t =>
+                {
+                    BackgroundRoot.position = Vector3.Lerp(backgroundSrc, backgroundTarget, t);
+                },
+                () => { });
 
             _isMoving = false;
         }
