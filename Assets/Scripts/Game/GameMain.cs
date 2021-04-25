@@ -248,6 +248,9 @@ namespace Game
             {
                 return;
             }
+
+            Sfx.Instance.Play("SwimUpRotate");
+            
             _isMoving = true;
             const float moveDuration = 1.5f;
             int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - PlayerRowIndex); 
