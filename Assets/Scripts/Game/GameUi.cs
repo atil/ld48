@@ -15,6 +15,9 @@ namespace Game
         [SerializeField] private RectTransform _depthArrow;
         [SerializeField] private RectTransform _returnButton;
         
+        [SerializeField] private GameObject _oxygenBarPrefab;
+        [SerializeField] private Transform _oxygenBarParent;
+        
         public AnimationCurve SliderMoveCurve;
         private const float _sliderMoveDuration = 0.5f;
 
@@ -27,18 +30,29 @@ namespace Game
         {
             _oxygenText.text = $"{oxy.ToString()}";
             
-            int initValue = (int)_slider.value;
-            
-            Curve.Tween(SliderMoveCurve,
-                _sliderMoveDuration,
-                t =>
-                {
-                    _slider.value = Mathf.Lerp(initValue, oxy, t);
-                },
-                () =>
-                {
-                    _slider.value = oxy;
-                });
+            // int initValue = (int)_slider.value;
+            //
+            // Curve.Tween(SliderMoveCurve,
+            //     _sliderMoveDuration,
+            //     t =>
+            //     {
+            //         _slider.value = Mathf.Lerp(initValue, oxy, t);
+            //     },
+            //     () =>
+            //     {
+            //         _slider.value = oxy;
+            //     });
+
+
+            foreach (Transform t in _oxygenBarParent)
+            {
+                Destroy(t.gameObject);
+            }
+
+            for (int i = 0; i < oxy; i++)
+            {
+                Instantiate(_oxygenBarPrefab, _oxygenBarParent);
+            }
         }
         
         public void SetScore(int gem)
