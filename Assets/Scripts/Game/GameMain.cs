@@ -46,6 +46,7 @@ namespace Game
 
         public bool OnReturnStage = false;
         public GameObject EndTileRoot;
+        public Transform CameraTransform;
 
         private void Start()
         {
@@ -234,36 +235,15 @@ namespace Game
             // 
 
             const float spaceBetweenTiles = 1.5f;
-            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
-            Vector3 tileRootSrc = TileRoot.position;
-            Vector3 tileRootTarget = TileRoot.position + scrollAmount;
+            Vector3 scrollAmount = (Direction == GameDirection.Up ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
+            Vector3 cameraSrc = CameraTransform.position;
+            Vector3 cameraTarget = cameraSrc + scrollAmount;
             
             Curve.Tween(MoveCurve,
                 moveDuration,
                 t =>
                 {
-                    TileRoot.position = Vector3.Lerp(tileRootSrc, tileRootTarget, t);
-                },
-                () => { });
-
-            playerSrc = Player.transform.position;
-            playerTarget = playerSrc + scrollAmount;
-            
-            Curve.Tween(MoveCurve,
-                moveDuration,
-                t =>
-                {
-                    Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
-                },
-                () => { });
-
-            Vector3 backgroundSrc = BackgroundRoot.position;
-            Vector3 backgroundTarget = BackgroundRoot.position + scrollAmount;
-            Curve.Tween(MoveCurve,
-                moveDuration,
-                t =>
-                {
-                    BackgroundRoot.position = Vector3.Lerp(backgroundSrc, backgroundTarget, t);
+                    CameraTransform.position = Vector3.Lerp(cameraSrc, cameraTarget, t);
                 },
                 () => { });
 
@@ -330,36 +310,15 @@ namespace Game
             CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
             
             const float spaceBetweenTiles = 1.5f;
-            Vector3 scrollAmount = (Direction == GameDirection.Down ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
-            Vector3 tileRootSrc = TileRoot.position;
-            Vector3 tileRootTarget = TileRoot.position + scrollAmount;
+            Vector3 scrollAmount = (Direction == GameDirection.Up ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
+            Vector3 cameraSrc = CameraTransform.position;
+            Vector3 cameraTarget = cameraSrc + scrollAmount;
             
             Curve.Tween(MoveCurve,
                 moveDuration,
                 t =>
                 {
-                    TileRoot.position = Vector3.Lerp(tileRootSrc, tileRootTarget, t);
-                },
-                () => { });
-            
-            Vector3 playerSrc = Player.transform.position;
-            Vector3 playerTarget = playerSrc + scrollAmount;
-            
-            Curve.Tween(MoveCurve,
-                moveDuration,
-                t =>
-                {
-                    Player.transform.position = Vector3.Lerp(playerSrc, playerTarget, t);
-                },
-                () => { });
-
-            Vector3 backgroundSrc = BackgroundRoot.position;
-            Vector3 backgroundTarget = BackgroundRoot.position + scrollAmount;
-            Curve.Tween(MoveCurve,
-                moveDuration,
-                t =>
-                {
-                    BackgroundRoot.position = Vector3.Lerp(backgroundSrc, backgroundTarget, t);
+                    CameraTransform.position = Vector3.Lerp(cameraSrc, cameraTarget, t);
                 },
                 () => { });
 
