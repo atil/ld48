@@ -145,13 +145,51 @@ namespace Game
             if (!OnReturnStage)
             {
                 Score += (PlayerRowIndex + 1);
+                GameUi.SetScore(Score, (PlayerRowIndex + 1), ScoreType.Depth);
             }
+            
+            //
+            // Tile special effect
+            // 
+            
+            if (tile.Type == TileType.Water)
+            {
+                // No Effect on water
+            }
+            else if (tile.Type == TileType.Oxygen)
+            {
+                Oxygen += tile.Value;
+                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen);
+            }
+            else if (tile.Type == TileType.Shark)
+            {
+                Oxygen -= tile.Value;
+                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen);
+            }
+            else if (tile.Type == TileType.Gem)
+            {
+                Score += 10;
+                GameUi.SetScore(Score, 10, ScoreType.Gem);
+            }
+            else if (tile.Type == TileType.End)
+            {
+                Score += 10;
+                GameUi.SetScore(Score, 10, ScoreType.Gem);
+            }
+            else
+            {
+                Debug.LogError("Tile Type not found");
+            }
+            
+            //
+            // Oxygen decrease due to depth
+            //
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
             
-            GameUi.SetScore(Score);
             
+
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
 

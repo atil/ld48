@@ -70,33 +70,6 @@ namespace Game
 
         private void OnMouseDown()
         {
-            if (Type == TileType.Water)
-            {
-                // No Effect on water
-            }
-            else if (Type == TileType.Oxygen)
-            {
-                _game.Oxygen += Value;
-                _game.Oxygen = Mathf.Clamp(_game.Oxygen, 0, _game.MaxOxygen);
-            }
-            else if (Type == TileType.Shark)
-            {
-                _game.Oxygen -= Value;
-                _game.Oxygen = Mathf.Clamp(_game.Oxygen, 0, _game.MaxOxygen);
-            }
-            else if (Type == TileType.Gem)
-            {
-                _game.Score += 10;
-            }
-            else if (Type == TileType.End)
-            {
-                _game.Score += 10;
-            }
-            else
-            {
-                Debug.LogError("Tile Type not found");
-            }
-            
             CoroutineStarter.Run(_game.OnTileClicked(this));
         }
 
