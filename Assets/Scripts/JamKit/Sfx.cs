@@ -33,6 +33,11 @@ namespace JamKit
         {
             foreach (AudioClip audioClip in _database.Clips)
             {
+                if (audioClip == null)
+                {
+                    Debug.LogWarning("There's a null clip in the sfx database");
+                    continue;
+                }
                 if (audioClip.name == clipName)
                 {
                     return audioClip;
@@ -65,10 +70,24 @@ namespace JamKit
             }
         }
 
-        public void ChangeMusicTrack(string clipName)
+        public void StartMusic(string clipName, bool isLooped)
+        {
+            AudioClip clip = GetClip(clipName);
+            if (clip != null)
+            {
+                _musicAudioSource.loop = isLooped;
+                _musicAudioSource.clip = clip;
+                _musicAudioSource.Play();
+            }
+            
+        }
+
+        public void ChangeMusicTrack(string clipName, bool isLooped)
         {
             _musicAudioSource.clip = GetClip(clipName);
+            _musicAudioSource.loop = isLooped;
             _musicAudioSource.volume = MusicVolume;
+            _musicAudioSource.Play();
         }
 
         public void FadeOutMusic(float duration)

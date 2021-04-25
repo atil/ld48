@@ -13,12 +13,15 @@ namespace Game
 
         void Start()
         {
+            Sfx.Instance.StartMusic("MusicSplash", false);
             Flash(_openFlashInfo);
         }
         
         public void OnClickedPlayButton()
         {
+            Sfx.Instance.Play("FirstSplash");
             _playButton.interactable = false;
+            Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration - 0.1f);
             Flash(_closeFlashInfo, () => SceneManager.LoadScene("Game"));
         }
     }

@@ -39,7 +39,7 @@ namespace JamKit
                 return;
             }
             
-            const string projectName = "TEST"; // Set this when you open a project in itch
+            const string projectName = "dont-drown"; // Set this when you open a project in itch
             
             BuildWebGL();
 
@@ -49,6 +49,7 @@ namespace JamKit
             Process butlerProcess = Process.Start("butler.exe", $"push WebGL.zip torrenglabs/{projectName}:win");
             butlerProcess.WaitForExit();
             EditorUtility.DisplayDialog("", "Deploy done", "OK good");
+            UnityEngine.Debug.Log("Deploy done");
             if (butlerProcess.ExitCode != 0)
             {
                 UnityEngine.Debug.LogError($"Butler push failed with exit code {butlerProcess.ExitCode}");

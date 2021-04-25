@@ -42,7 +42,7 @@ public class TileGenerator : MonoBehaviour
         {
             for (int j = 0; j < columnAmount; j++)
             {
-                var newTile = CreateRandomTile();
+                Tile newTile = i == 0 ? CreateWaterTile() : CreateRandomTile(); // First row is water-tile only
                 result.Add(newTile.GetComponent<Tile>());
             }
         }
@@ -72,6 +72,19 @@ public class TileGenerator : MonoBehaviour
         tileData.Value = 1;
 
         newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[tileData.Type];
+        return newTile.GetComponent<Tile>();
+    }
+
+    private Tile CreateWaterTile()
+    {
+        var newTile = Instantiate(TilePrefab, transform.position, Quaternion.identity);
+        newTile.parent = TileRoot;
+
+        var tileData = newTile.GetComponent<Tile>();
+        tileData.Type = TileType.Water;
+        tileData.Value = 1;
+
+        newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[TileType.Water];
         return newTile.GetComponent<Tile>();
     }
 }

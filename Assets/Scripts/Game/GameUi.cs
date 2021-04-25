@@ -91,6 +91,7 @@ namespace Game
         
         public void HideReturnButton()
         {
+            Sfx.Instance.Play("SwimUpButton");
             _returnButton.gameObject.SetActive(false);
         }
 

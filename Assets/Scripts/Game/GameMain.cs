@@ -44,9 +44,10 @@ namespace Game
         private bool _isMoving;
 
         public bool OnReturnStage = false;
-        
+
         private void Start()
         {
+            Sfx.Instance.ChangeMusicTrack("Music", true);
             ResultData.Instance.Clear();
 
             Oxygen = MaxOxygen;
@@ -126,7 +127,7 @@ namespace Game
             // Move is valid. Change stuff here
             //
 
-            tile.PlaySfx();
+            tile.PlaySfx(PlayerRowIndex);
 
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
@@ -249,6 +250,9 @@ namespace Game
             {
                 return;
             }
+
+            Sfx.Instance.Play("SwimUpRotate");
+            
             _isMoving = true;
             const float moveDuration = 1.5f;
             int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - PlayerRowIndex); 

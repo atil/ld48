@@ -35,9 +35,17 @@ namespace Game
             _game.HoveredTiles.Remove(this);
         }
 
-        public void PlaySfx()
+        public void PlaySfx(int playerRowIndex)
         {
-            Sfx.Instance.Play("Swim");
+            if (playerRowIndex == -1)
+            {
+                Sfx.Instance.Play("FirstSplash");
+            }
+            else
+            {
+                Sfx.Instance.Play("Swim");
+            }
+
             switch (Type)
             {
                 case TileType.Water: 
