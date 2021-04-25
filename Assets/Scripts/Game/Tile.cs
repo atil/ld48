@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using JamKit;
+using UnityEngine;
 
 namespace Game
 {
@@ -31,6 +33,26 @@ namespace Game
         private void OnMouseExit()
         {
             _game.HoveredTiles.Remove(this);
+        }
+
+        public void PlaySfx()
+        {
+            switch (Type)
+            {
+                case TileType.Water: 
+                    Sfx.Instance.Play("Swim");
+                    break;
+                case TileType.Oxygen:
+                    Sfx.Instance.Play("Breathe");
+                    break;
+                case TileType.Shark:
+                    Sfx.Instance.Play("Shark");
+                    break;
+                case TileType.Gem:
+                    Sfx.Instance.Play("Gem");
+                    break;
+                default: throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void OnMouseDown()
