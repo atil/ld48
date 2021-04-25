@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -44,9 +45,11 @@ public class TileGenerator : MonoBehaviour
         List<Tile> result = new List<Tile>();
         for (int i = 0; i < rowAmount; i++)
         {
+            List<Tile> tempTiles = new List<Tile>();
             for (int j = 0; j < columnAmount; j++)
             {
-                Tile newTile = i == 0 ? CreateWaterTile() : CreateRandomTile(); // First row is water-tile only
+                Tile newTile = i == 0 ? CreateWaterTile() : CreateRandomTile(tempTiles); // First row is water-tile only
+                tempTiles.Add(newTile);
                 result.Add(newTile.GetComponent<Tile>());
             }
         }
@@ -57,22 +60,36 @@ public class TileGenerator : MonoBehaviour
     public Tile[] GenerateRow(int columnAmount)
     {
         Tile[] result = new Tile[columnAmount]; 
+        List<Tile> tempTiles = new List<Tile>();
         for (int i = 0; i < columnAmount; i++)
         {
-            var newTile = CreateRandomTile();
+            var newTile = CreateRandomTile(tempTiles);
+            tempTiles.Add(newTile);
             result[i] = newTile;
         }
 
         return result;
     }
 
-    private Tile CreateRandomTile()
+    private Tile CreateRandomTile(List<Tile> excludedTiles)
     {
         var newTile = Instantiate(TilePrefab, transform.position, Quaternion.identity);
         newTile.parent = TileRoot;
 
         var tileData = newTile.GetComponent<Tile>();
-        tileData.Type = (TileType) Random.Range(0, 4);
+        if (excludedTiles.Count > 3)
+        {
+            tileData.Type = TileType.Shark;
+            //tileData.Type = (TileType) Random.Range(0, 4);
+        }
+        else
+        {
+            do
+            {
+                tileData.Type = (TileType) Random.Range(0, 4);
+            } while (excludedTiles.Any(x => tileData.Type == x.Type));
+        }
+        
         tileData.Value = 1;
 
         newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[tileData.Type];

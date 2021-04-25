@@ -158,29 +158,31 @@ namespace Game
             // Tile special effect
             // 
             
+            int delta = ((PlayerRowIndex / 10) + 1) * 5;
+            
             if (tile.Type == TileType.Water)
             {
                 // No Effect on water
             }
             else if (tile.Type == TileType.Oxygen)
             {
-                Oxygen += tile.Value;
-                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen);
+                Oxygen += 2;
+                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen + 1);
             }
             else if (tile.Type == TileType.Shark)
             {
-                Oxygen -= tile.Value;
-                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen);
+                Oxygen -= 1;
+                Oxygen = Mathf.Clamp(Oxygen, 0, MaxOxygen + 1);
             }
             else if (tile.Type == TileType.Gem)
             {
-                Score += 10;
-                GameUi.SetScore(Score, 10, ScoreType.Gem);
+                Score += delta;
+                GameUi.SetScore(Score, delta, ScoreType.Gem);
             }
             else if (tile.Type == TileType.End)
             {
-                Score += 10;
-                GameUi.SetScore(Score, 10, ScoreType.Gem);
+                Score += delta;
+                GameUi.SetScore(Score, delta, ScoreType.Gem);
             }
             else
             {
@@ -279,6 +281,7 @@ namespace Game
                 PlayerPrefs.SetInt("DepthRecord", PlayerCurrentDepthRecord);
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;
+                ResultData.Instance.Depth = PlayerCurrentDepthRecord;
                 GameUi.CloseFlash();
             }
             else if (Oxygen <= 0)
