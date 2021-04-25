@@ -236,7 +236,7 @@ namespace Game
                 GameUi.CloseFlash();
             }
             
-            if (Oxygen == 0)
+            if (Oxygen <= 0)
             {
                 ResultData.Instance.HasWon = false;
                 CoroutineStarter.Run(Player.PlayDeadAnim(1.9f, Direction));
