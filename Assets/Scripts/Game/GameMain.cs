@@ -25,6 +25,7 @@ namespace Game
         public GameObject Cursor;
         public HashSet<Tile> HoveredTiles = new HashSet<Tile>();
         private Tile _hoveredTile;
+        public ParticleSystem BubbleTrail;
 
         public int MaxOxygen = 16;
         public int Oxygen = 10;
@@ -90,6 +91,8 @@ namespace Game
             {
                 Cursor.SetActive(false);
             }
+
+            BubbleTrail.transform.position = Player.transform.position;
         }
 
         private bool IsTileMovable(Tile tile)
@@ -203,8 +206,18 @@ namespace Game
             // First, move the player to the target tile
             // 
 
+            
             _isMoving = true;
             const float moveDuration = 0.5f;
+            
+            // Set bubble particles
+            // BubbleTrail.Play();
+            // BubbleTrail.simulationSpace = ParticleSystemSimulationSpace.World;
+            // ParticleSystem.ShapeModule shape = BubbleTrail.shape;
+            // shape.position = 
+            //
+            // CoroutineStarter.RunDelayed(moveDuration, () => BubbleTrail.simulationSpace = ParticleSystemSimulationSpace.Local);
+            
             CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
             yield return Curve.Tween(MoveCurve,
                 moveDuration,

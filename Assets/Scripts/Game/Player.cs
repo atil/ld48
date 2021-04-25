@@ -114,5 +114,6 @@ namespace Game
 
             Visual.transform.eulerAngles = initEuler;
         }
+
     }
 }
