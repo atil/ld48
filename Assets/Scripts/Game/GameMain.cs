@@ -126,7 +126,7 @@ namespace Game
             // Move is valid. Change stuff here
             //
 
-            tile.PlaySfx();
+            tile.PlaySfx(PlayerRowIndex);
 
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
