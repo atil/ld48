@@ -231,6 +231,7 @@ namespace Game
 
             if (PlayerRowIndex == 0 && OnReturnStage)
             {
+                _isMoving = true;
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;
                 GameUi.CloseFlash();
@@ -238,6 +239,7 @@ namespace Game
             
             if (Oxygen <= 0)
             {
+                _isMoving = true;
                 ResultData.Instance.HasWon = false;
                 CoroutineStarter.Run(Player.PlayDeadAnim(1.9f, Direction));
                 GameUi.CloseFlash();
