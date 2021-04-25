@@ -232,13 +232,14 @@ namespace Game
             {
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;
-                SceneManager.LoadScene("End"); // TODO: Smooth transition
+                GameUi.CloseFlash();
             }
             
             if (Oxygen == 0)
             {
                 ResultData.Instance.HasWon = false;
-                SceneManager.LoadScene("End"); // TODO: Smooth transition
+                CoroutineStarter.Run(Player.PlayDeadAnim(1.9f, Direction));
+                GameUi.CloseFlash();
             }
         }
 

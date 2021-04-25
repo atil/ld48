@@ -2,6 +2,7 @@
 using JamKit;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Game
@@ -17,7 +18,9 @@ namespace Game
         
         [SerializeField] private GameObject _oxygenBarPrefab;
         [SerializeField] private Transform _oxygenBarParent;
-        
+
+        [SerializeField] private FlashInfo _closeFlashInfo;
+
         public AnimationCurve SliderMoveCurve;
         private const float _sliderMoveDuration = 0.5f;
 
@@ -89,6 +92,11 @@ namespace Game
         public void HideReturnButton()
         {
             _returnButton.gameObject.SetActive(false);
+        }
+
+        public void CloseFlash()
+        {
+            Flash(_closeFlashInfo, () => SceneManager.LoadScene("End"));
         }
     }
 }
