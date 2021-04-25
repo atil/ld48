@@ -26,6 +26,7 @@ namespace Game
             }
             else
             {
+                _titleText.text = "You lost, but it's OK\nJust try again";
                 _scoreText.gameObject.SetActive(false);
             }
             
@@ -35,6 +36,7 @@ namespace Game
         public void OnClickedPlayButton()
         {
             Sfx.Instance.Play("FirstSplash");
+            Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration - 0.1f);
             _playButton.interactable = false;
             Flash(_closeFlashInfo, () => SceneManager.LoadScene("Game"));
         }

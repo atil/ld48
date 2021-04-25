@@ -92,6 +92,7 @@ namespace Game
             else
             {
                 Cursor.SetActive(false);
+                _hoveredTile = null;
             }
 
             BubbleTrail.transform.position = Player.transform.position;

@@ -34,7 +34,7 @@ namespace Game
         
         [SerializeField] private TextMeshProUGUI _normalFloatingText;
         [SerializeField] private TextMeshProUGUI _gemFloatingText;
-        private const float _floatingTextDuration = 1f;
+        private const float _floatingTextDuration = 0.5f;
         private bool _isFloatingTextActive = false;
 
         [SerializeField] private Color _oxygenBarAddColor;
@@ -130,10 +130,10 @@ namespace Game
             switch (type)
             {
                 case ScoreType.Depth:
-                    CoroutineStarter.Run(ScoreFloatingText(delta.ToString(), _normalFloatingText, gem.ToString()));
+                    CoroutineStarter.Run(ScoreFloatingText($"+{delta.ToString()}", _normalFloatingText, gem.ToString()));
                     break;
                 case ScoreType.Gem:
-                    CoroutineStarter.Run(ScoreFloatingText(delta.ToString(), _gemFloatingText, gem.ToString()));
+                    CoroutineStarter.Run(ScoreFloatingText($"+{delta.ToString()}", _gemFloatingText, gem.ToString()));
                     break;
                 default:
                     _gemText.text = $"{gem.ToString()}";
@@ -196,14 +196,15 @@ namespace Game
             Vector3 srcPos = _gemText.transform.position + (Vector3.down * 50);
             textUI.transform.position = srcPos;
             
-            Vector3 targetPos = _gemText.transform.position;
+            Vector3 targetPos = _gemText.transform.position + (Vector3.down * 10);
 
-            for (float f = 0f; f < _floatingTextDuration; f += Time.deltaTime)
-            {
-                textUI.transform.position = Vector3.Lerp(srcPos, targetPos, f / _floatingTextDuration);
-                textUI.alpha = Mathf.Lerp(1f, 0.5f, f / _floatingTextDuration);
-                yield return new WaitForEndOfFrame();
-            }
+            yield return Curve.Tween(SliderMoveCurve,
+                _floatingTextDuration,
+                t =>
+                {
+                    textUI.transform.position = Vector3.Lerp(srcPos, targetPos, t);
+                    textUI.alpha = Mathf.Lerp(1f, 0.5f, t);
+                });
 
             textUI.transform.position = targetPos;
             textUI.gameObject.SetActive(false);
