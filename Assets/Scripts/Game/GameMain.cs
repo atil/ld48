@@ -44,6 +44,7 @@ namespace Game
         private bool _isMoving;
 
         public bool OnReturnStage = false;
+        public GameObject EndTileRoot;
 
         private void Start()
         {
@@ -98,9 +99,16 @@ namespace Game
                 return false; // Can't go up or sideways while travelling down
             }
             
-            if (Direction == GameDirection.Up && PlayerRowIndex != tile.Index.i + VerticalRange)
+            if (Direction == GameDirection.Up)
             {
-                return false; // Can't go down or sideways when travelling up
+                if (tile.Index.i == -1)
+                {
+                    return true; // End Tile Index
+                }
+                if (PlayerRowIndex != tile.Index.i + VerticalRange)
+                {
+                    return false; // Can't go down or sideways when travelling up
+                }
             }
 
             if (Mathf.Abs(PlayerColumnIndex - tile.Index.j) > HorizontalRange)
@@ -147,7 +155,10 @@ namespace Game
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
 
-            _tiles[tile.Index.i][tile.Index.j] = null;
+            if (tile.Index.i >= 0 && tile.Index.j >= 0)
+            {
+                _tiles[tile.Index.i][tile.Index.j] = null;
+            }
             Destroy(tile.gameObject);
 
             // 
@@ -229,7 +240,7 @@ namespace Game
                 GameUi.ShowReturnButton();
             }
 
-            if (PlayerRowIndex == 0 && OnReturnStage)
+            if (PlayerRowIndex < 0 && OnReturnStage)
             {
                 _isMoving = true;
                 ResultData.Instance.HasWon = true;
@@ -302,6 +313,10 @@ namespace Game
                 },
                 () => { });
 
+            
+            EndTileRoot.SetActive(true);
+            EndTileRoot.GetComponent<Tile>().Index = (-1, 2);
+            
             OnReturnStage = true;
 
             yield return new WaitForSeconds(moveDuration);

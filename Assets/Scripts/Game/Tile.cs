@@ -9,7 +9,8 @@ namespace Game
         Water,
         Oxygen,
         Shark,
-        Gem
+        Gem,
+        End
     }
     public class Tile : MonoBehaviour
     {
@@ -59,6 +60,10 @@ namespace Game
                 case TileType.Gem:
                     Sfx.Instance.Play("Gem");
                     break;
+                case TileType.End:
+                    Sfx.Instance.Play("FirstSplash");
+                    Sfx.Instance.Play("Gem"); //TODO End Game Sfx
+                    break;
                 default: throw new ArgumentOutOfRangeException();
             }
         }
@@ -80,6 +85,10 @@ namespace Game
                 _game.Oxygen = Mathf.Clamp(_game.Oxygen, 0, _game.MaxOxygen);
             }
             else if (Type == TileType.Gem)
+            {
+                _game.Score += 10;
+            }
+            else if (Type == TileType.End)
             {
                 _game.Score += 10;
             }

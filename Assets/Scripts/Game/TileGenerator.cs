@@ -31,6 +31,10 @@ public class TileGenerator : MonoBehaviour
             {
                 TileType.Shark,
                 Resources.Load<Sprite>("Textures/Shark")
+            },
+            {
+                TileType.End,
+                Resources.Load<Sprite>("Textures/End")
             }
         };
     }
