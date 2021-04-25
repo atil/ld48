@@ -74,7 +74,7 @@ namespace Game
                     PlayOxygenBarAdd(_oxygenBarParent.GetChild(i).gameObject);
                 }
             }
-            else if (oxy < _currentOxy)
+            else if (oxy < _currentOxy && _oxygenBarParent.childCount > 0)
             {
                 int removed = _currentOxy - oxy;
 
@@ -87,7 +87,6 @@ namespace Game
             }
 
             _currentOxy = oxy;
-
         }
 
         private void PlayOxygenBarAdd(GameObject entryGo)

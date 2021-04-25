@@ -11,6 +11,10 @@ namespace Game
         public Sprite[] IdleSprites;
         public Sprite DeadSprite;
 
+        public GameObject Exclamation;
+        public Transform ExclamationParentDown;
+        public Transform ExclamationParentUp;
+
         private Coroutine _idleCoroutine;
 
         public void PlayIdleAnim(GameDirection direction)

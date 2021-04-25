@@ -195,8 +195,8 @@ namespace Game
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
-            
-            
+            Player.Exclamation.SetActive(Oxygen <= 3);
+            Player.Exclamation.transform.SetParent(Direction == GameDirection.Down ? Player.ExclamationParentDown : Player.ExclamationParentUp, false);
 
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
