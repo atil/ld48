@@ -37,6 +37,7 @@ namespace Game
         public float OffsetBetweenTiles = 1.5f;
         public int PlayerRowIndex = -1;
         public int PlayerColumnIndex = 2;
+        public int PlayerCurrentDepthRecord = 0;
 
         public int VerticalRange = 1;
         public int HorizontalRange = 1;
@@ -274,6 +275,7 @@ namespace Game
             if (PlayerRowIndex < 0 && OnReturnStage)
             {
                 _isMoving = true;
+                PlayerPrefs.SetInt("DepthRecord", PlayerCurrentDepthRecord);
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;
                 GameUi.CloseFlash();
@@ -293,6 +295,8 @@ namespace Game
             {
                 return;
             }
+
+            PlayerCurrentDepthRecord = PlayerRowIndex + 1;
             StartCoroutine(SwimUpCoroutine());
         }
 

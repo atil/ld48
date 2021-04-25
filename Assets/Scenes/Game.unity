@@ -356,6 +356,7 @@ MonoBehaviour:
   OffsetBetweenTiles: 1.5
   PlayerRowIndex: -1
   PlayerColumnIndex: 2
+  PlayerCurrentDepthRecord: 0
   VerticalRange: 1
   HorizontalRange: 1
   OnReturnStage: 0
@@ -4133,9 +4134,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2129807272}
-  - {fileID: 1926844270}
   - {fileID: 638008457}
   - {fileID: 853863611}
+  - {fileID: 1926844270}
   m_Father: {fileID: 1470214252}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4546,7 +4547,7 @@ RectTransform:
   m_Children:
   - {fileID: 584433709}
   m_Father: {fileID: 590147203}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -5558,7 +5559,7 @@ RectTransform:
   m_Children:
   - {fileID: 462195931}
   m_Father: {fileID: 590147203}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -14831,9 +14832,10 @@ MonoBehaviour:
       m_RotationOrder: 4
   _gemText: {fileID: 622235710}
   _depthArrow: {fileID: 1926844270}
+  _depthText: {fileID: 859658670}
   _flagArrow: {fileID: 853863611}
   _recordArrow: {fileID: 638008457}
-  _depthText: {fileID: 859658670}
+  _recordText: {fileID: 584433710}
   _returnButton: {fileID: 1876158361}
   _oxygenBarPrefab: {fileID: 4067133147269120773, guid: 05e7428f80d0b8143a9d1c6c9f4277b4,
     type: 3}
@@ -17920,7 +17922,7 @@ RectTransform:
   m_Children:
   - {fileID: 859658669}
   m_Father: {fileID: 590147203}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

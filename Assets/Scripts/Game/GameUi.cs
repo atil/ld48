@@ -19,9 +19,10 @@ namespace Game
         [SerializeField] private FlashInfo _openFlashInfo;
         [SerializeField] private TextMeshProUGUI _gemText;
         [SerializeField] private RectTransform _depthArrow;
+        [SerializeField] private TextMeshProUGUI _depthText;
         [SerializeField] private RectTransform _flagArrow;
         [SerializeField] private RectTransform _recordArrow;
-        [SerializeField] private TextMeshProUGUI _depthText;
+        [SerializeField] private TextMeshProUGUI _recordText;
         [SerializeField] private RectTransform _returnButton;
         
         [SerializeField] private GameObject _oxygenBarPrefab;
@@ -38,6 +39,8 @@ namespace Game
 
         [SerializeField] private Color _oxygenBarAddColor;
         [SerializeField] private Color _oxygenBarRemoveColor;
+        
+        private const int maxDepth = 50; // Source: depths of my ass
 
         private int _currentOxy;
         
@@ -45,6 +48,17 @@ namespace Game
         {
             Flash(_openFlashInfo);
             _currentOxy = FindObjectOfType<GameMain>().Oxygen;
+
+            int record = PlayerPrefs.GetInt("DepthRecord", 0);
+            
+            if (record > 0)
+            {
+                _recordArrow.gameObject.SetActive(true);
+                Vector2 pos = _depthArrow.anchoredPosition;
+                pos.y = -540 * (float) (record) / 50;
+                _recordArrow.anchoredPosition = pos;
+                _recordText.text = record.ToString();
+            }
         }
 
         public void SetOxygen(int oxy)
@@ -129,8 +143,6 @@ namespace Game
 
         public void SetDepth(int depthIndex)
         {
-            const int maxDepth = 50; // Source: depths of my ass
-            
             _depthText.text = (depthIndex + 1).ToString();
             Vector2 srcPos =_depthArrow.anchoredPosition; 
             Vector2 pos = _depthArrow.anchoredPosition;
