@@ -17,17 +17,14 @@ namespace Game
     public class GameUi : UiBase
     {
         [SerializeField] private FlashInfo _openFlashInfo;
-        [SerializeField] private TextMeshProUGUI _oxygenText;
         [SerializeField] private TextMeshProUGUI _gemText;
-        [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _depthArrow;
         [SerializeField] private RectTransform _returnButton;
         
         [SerializeField] private GameObject _oxygenBarPrefab;
         [SerializeField] private Transform _oxygenBarParent;
-
         [SerializeField] private FlashInfo _closeFlashInfo;
-
+        
         public AnimationCurve SliderMoveCurve;
         private const float _sliderMoveDuration = 0.5f;
         
@@ -36,38 +33,79 @@ namespace Game
         private const float _floatingTextDuration = 1f;
         private bool _isFloatingTextActive = false;
 
+        [SerializeField] private Color _oxygenBarAddColor;
+        [SerializeField] private Color _oxygenBarRemoveColor;
+
+        private int _currentOxy;
+        
         void Start()
         {
             Flash(_openFlashInfo);
+            _currentOxy = FindObjectOfType<GameMain>().Oxygen;
         }
 
         public void SetOxygen(int oxy)
         {
-            _oxygenText.text = $"{oxy.ToString()}";
-            
-            // int initValue = (int)_slider.value;
-            //
-            // Curve.Tween(SliderMoveCurve,
-            //     _sliderMoveDuration,
-            //     t =>
-            //     {
-            //         _slider.value = Mathf.Lerp(initValue, oxy, t);
-            //     },
-            //     () =>
-            //     {
-            //         _slider.value = oxy;
-            //     });
-
-
-            foreach (Transform t in _oxygenBarParent)
+            if (oxy > _currentOxy)
             {
-                Destroy(t.gameObject);
+                int added = oxy - _currentOxy;
+                
+                for (int i = 0; i < added; i++)
+                {
+                    GameObject go = Instantiate(_oxygenBarPrefab, _oxygenBarParent);
+                    go.GetComponent<Image>().color = _oxygenBarAddColor;
+                    PlayOxygenBarAdd(_oxygenBarParent.GetChild(i).gameObject);
+                }
+            }
+            else if (oxy < _currentOxy)
+            {
+                int removed = _currentOxy - oxy;
+
+                for (int i = 0; i < removed; i++)
+                {
+                    int childIndex = i;
+                    GameObject removedGo = _oxygenBarParent.GetChild(childIndex).gameObject;
+                    PlayOxygenBarRemove(removedGo);
+                }
             }
 
-            for (int i = 0; i < oxy; i++)
-            {
-                Instantiate(_oxygenBarPrefab, _oxygenBarParent);
-            }
+            _currentOxy = oxy;
+
+        }
+
+        private void PlayOxygenBarAdd(GameObject entryGo)
+        {
+            Image image = entryGo.GetComponent<Image>();
+            Color srcColor = Color.white;
+            Color targetColor = _oxygenBarAddColor;
+            Curve.Tween(SliderMoveCurve,
+                0.3f,
+                t =>
+                {
+                    image.color = Color.Lerp(srcColor, targetColor, t);
+                },
+                () =>
+                {
+                    image.color = targetColor;
+                });
+        }
+
+        private void PlayOxygenBarRemove(GameObject entryGo)
+        {
+            Image image = entryGo.GetComponent<Image>();
+            Color srcColor = image.color;
+            Color targetColor = _oxygenBarRemoveColor;
+            Curve.Tween(SliderMoveCurve,
+                0.3f,
+                t =>
+                {
+                    image.color = Color.Lerp(srcColor, targetColor, t);
+                },
+                () =>
+                {
+                    image.color = targetColor;
+                    Destroy(entryGo);
+                });
         }
         
         public void SetScore(int gem, int delta = 0, ScoreType type = ScoreType.None)
