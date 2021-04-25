@@ -247,8 +247,7 @@ namespace Game
                 ResultData.Instance.Score = Score;
                 GameUi.CloseFlash();
             }
-            
-            if (Oxygen <= 0)
+            else if (Oxygen <= 0)
             {
                 _isMoving = true;
                 ResultData.Instance.HasWon = false;
