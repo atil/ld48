@@ -24,6 +24,7 @@ namespace Game
         public int ShowReturnButtonAt = 5;
         public GameObject Cursor;
         public HashSet<Tile> HoveredTiles = new HashSet<Tile>();
+        private Tile _hoveredTile;
 
         public int MaxOxygen = 16;
         public int Oxygen = 10;
@@ -72,13 +73,15 @@ namespace Game
 
         private void Update()
         {
-            if (HoveredTiles.Count == 1)
+            if (HoveredTiles.Count == 1 && !_isMoving)
             {
                 Tile tile = HoveredTiles.First();
-                if (IsTileMovable(tile))
+                if (IsTileMovable(tile) && _hoveredTile != tile)
                 {
                     Cursor.SetActive(true);
                     Cursor.transform.position = tile.transform.position;
+                    Sfx.Instance.Play("Hover");
+                    _hoveredTile = tile;
                 }
             }
             else
@@ -123,6 +126,8 @@ namespace Game
             // Move is valid. Change stuff here
             //
 
+            tile.PlaySfx();
+
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
             PlayerColumnIndex = tile.Index.j;
@@ -147,7 +152,7 @@ namespace Game
             // 
             // First, move the player to the target tile
             // 
-            
+
             _isMoving = true;
             const float moveDuration = 0.5f;
             CoroutineStarter.Run(Player.PlayMoveAnim(moveDuration, Direction));
