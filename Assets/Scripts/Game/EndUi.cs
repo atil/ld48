@@ -32,7 +32,7 @@ namespace Game
         
         public void OnClickedPlayButton()
         {
-            Sfx.Instance.Play("PlayClick");
+            Sfx.Instance.Play("FirstSplash");
             _playButton.interactable = false;
             Flash(_closeFlashInfo, () => SceneManager.LoadScene("Game"));
         }
