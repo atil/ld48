@@ -28,7 +28,7 @@ namespace Game
         public int MaxOxygen = 16;
         public int Oxygen = 10;
         public GameDirection Direction = GameDirection.Down;
-        public int Gem = 0;
+        public int Score = 0;
 
         public int RowCount = 4;
         public int ColumnCount = 5;
@@ -65,6 +65,9 @@ namespace Game
                     _tiles[i][j].transform.localPosition = new Vector3(j * OffsetBetweenTiles, i * -1 * OffsetBetweenTiles, 0);
                 }
             }
+
+            Score = 0;
+            GameUi.SetScore(Score);
         }
 
         private void Update()
@@ -125,10 +128,15 @@ namespace Game
             PlayerColumnIndex = tile.Index.j;
             GameUi.SetDepth(PlayerRowIndex);
 
+            if (!OnReturnStage)
+            {
+                Score += (PlayerRowIndex + 1);
+            }
+
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
             
-            GameUi.SetGem(Gem);
+            GameUi.SetScore(Score);
             
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
@@ -218,7 +226,7 @@ namespace Game
             if (PlayerRowIndex == 0 && OnReturnStage)
             {
                 ResultData.Instance.HasWon = true;
-                ResultData.Instance.Score = Gem;
+                ResultData.Instance.Score = Score;
                 SceneManager.LoadScene("End"); // TODO: Smooth transition
             }
             

@@ -41,7 +41,7 @@ namespace Game
                 });
         }
         
-        public void SetGem(int gem)
+        public void SetScore(int gem)
         {
             _gemText.text = $"{gem.ToString()}";
         }

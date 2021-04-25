@@ -69,7 +69,7 @@ public class TileGenerator : MonoBehaviour
 
         var tileData = newTile.GetComponent<Tile>();
         tileData.Type = (TileType) Random.Range(0, 4);
-        tileData.Value = Random.Range(1, 4);
+        tileData.Value = 1;
 
         newTile.Find("Visual").GetComponent<SpriteRenderer>().sprite = _sprites[tileData.Type];
         return newTile.GetComponent<Tile>();

@@ -51,7 +51,7 @@ namespace Game
             }
             else if (Type == TileType.Gem)
             {
-                _game.Gem += Value;
+                _game.Score += 10;
             }
             else
             {
