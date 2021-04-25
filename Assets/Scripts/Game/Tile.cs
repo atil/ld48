@@ -37,10 +37,10 @@ namespace Game
 
         public void PlaySfx()
         {
+            Sfx.Instance.Play("Swim");
             switch (Type)
             {
                 case TileType.Water: 
-                    Sfx.Instance.Play("Swim");
                     break;
                 case TileType.Oxygen:
                     Sfx.Instance.Play("Breathe");
