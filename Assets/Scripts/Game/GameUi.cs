@@ -19,6 +19,9 @@ namespace Game
         [SerializeField] private FlashInfo _openFlashInfo;
         [SerializeField] private TextMeshProUGUI _gemText;
         [SerializeField] private RectTransform _depthArrow;
+        [SerializeField] private RectTransform _flagArrow;
+        [SerializeField] private RectTransform _recordArrow;
+        [SerializeField] private TextMeshProUGUI _depthText;
         [SerializeField] private RectTransform _returnButton;
         
         [SerializeField] private GameObject _oxygenBarPrefab;
@@ -126,11 +129,12 @@ namespace Game
 
         public void SetDepth(int depthIndex)
         {
-            const int maxDepth = 150; // Source: depths of my ass
+            const int maxDepth = 50; // Source: depths of my ass
             
+            _depthText.text = (depthIndex + 1).ToString();
             Vector2 srcPos =_depthArrow.anchoredPosition; 
             Vector2 pos = _depthArrow.anchoredPosition;
-            pos.y = -540 * (float) depthIndex / maxDepth;
+            pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
             Vector2 targetPos = pos;
             
             Curve.Tween(SliderMoveCurve,
@@ -152,6 +156,9 @@ namespace Game
         
         public void HideReturnButton()
         {
+            _flagArrow.gameObject.SetActive(true);
+            _flagArrow.transform.position = _depthArrow.transform.position;
+            
             Sfx.Instance.Play("SwimUpButton");
             _returnButton.gameObject.SetActive(false);
         }
