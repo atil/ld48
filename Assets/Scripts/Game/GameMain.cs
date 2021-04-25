@@ -44,9 +44,10 @@ namespace Game
         private bool _isMoving;
 
         public bool OnReturnStage = false;
-        
+
         private void Start()
         {
+            Sfx.Instance.ChangeMusicTrack("Music", true);
             ResultData.Instance.Clear();
 
             Oxygen = MaxOxygen;

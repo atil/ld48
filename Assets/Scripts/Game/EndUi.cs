@@ -16,6 +16,8 @@ namespace Game
 
         void Start()
         {
+            Sfx.Instance.ChangeMusicTrack("MusicSplash", false);
+            
             if (ResultData.Instance.HasWon)
             {
                 _titleText.text = "You won!";
