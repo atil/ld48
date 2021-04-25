@@ -18,7 +18,7 @@ public class TileGenerator : MonoBehaviour
         {
             {
                 TileType.Water,
-                _waterSprites[23]
+                _waterSprites[92]
             },
             {
                 TileType.Gem,
