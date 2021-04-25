@@ -250,10 +250,15 @@ namespace Game
             {
                 return;
             }
+            StartCoroutine(SwimUpCoroutine());
+        }
+
+        private IEnumerator SwimUpCoroutine()
+        {
+            _isMoving = true;
 
             Sfx.Instance.Play("SwimUpRotate");
             
-            _isMoving = true;
             const float moveDuration = 1.5f;
             int amountOfMovement = Mathf.Abs((_tiles.Count - 1) - PlayerRowIndex); 
 
@@ -296,8 +301,10 @@ namespace Game
                 () => { });
 
             OnReturnStage = true;
+
+            yield return new WaitForSeconds(moveDuration);
             
             _isMoving = false;
-        }
+        } 
     }
 }
