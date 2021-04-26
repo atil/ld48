@@ -278,7 +278,18 @@ namespace Game
             if (PlayerRowIndex < 0 && OnReturnStage)
             {
                 _isMoving = true;
-                PlayerPrefs.SetInt("DepthRecord", PlayerCurrentDepthRecord);
+                int previousDepthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
+                int previousHighScore = PlayerPrefs.GetInt("HighScore", 0);
+
+                if (previousDepthRecord <= PlayerCurrentDepthRecord)
+                {
+                    PlayerPrefs.SetInt("DepthRecord", PlayerCurrentDepthRecord);
+                    if (previousHighScore < Score)
+                    {
+                        PlayerPrefs.SetInt("HighScore", Score);
+                    }
+                }
+
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;
                 ResultData.Instance.Depth = PlayerCurrentDepthRecord;

@@ -49,15 +49,15 @@ namespace Game
             Flash(_openFlashInfo);
             _currentOxy = FindObjectOfType<GameMain>().Oxygen;
 
-            int record = PlayerPrefs.GetInt("DepthRecord", 0);
+            int depthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
             
-            if (record > 0)
+            if (depthRecord > 0)
             {
                 _recordArrow.gameObject.SetActive(true);
                 Vector2 pos = _depthArrow.anchoredPosition;
-                pos.y = -540 * (float) (record) / 50;
+                pos.y = -540 * (float) (depthRecord) / 50;
                 _recordArrow.anchoredPosition = pos;
-                _recordText.text = record.ToString();
+                _recordText.text = depthRecord.ToString();
             }
         }
 

@@ -10,6 +10,7 @@ namespace Game
     {
         [SerializeField] private Button _playButton;
         [SerializeField] private TextMeshProUGUI _titleText;
+        [SerializeField] private TextMeshProUGUI _depthText;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private FlashInfo _openFlashInfo;
         [SerializeField] private FlashInfo _closeFlashInfo;
@@ -21,12 +22,15 @@ namespace Game
             if (ResultData.Instance.HasWon)
             {
                 _titleText.text = Random.value > 0.5f ? "You made it!" : "That was awesome!";
+                _depthText.gameObject.SetActive(true);
+                _depthText.text = $"Depth: {ResultData.Instance.Depth.ToString()}";
                 _scoreText.gameObject.SetActive(true);
                 _scoreText.text = $"Score: {ResultData.Instance.Score.ToString()}";
             }
             else
             {
                 _titleText.text = "You lost, but it's OK\nJust try again";
+                _depthText.gameObject.SetActive(false);
                 _scoreText.gameObject.SetActive(false);
             }
             
