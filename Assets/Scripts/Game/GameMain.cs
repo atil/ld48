@@ -300,7 +300,7 @@ namespace Game
                 _isMoving = true;
                 ResultData.Instance.HasWon = false;
                 Player.transform.DetachChildren();
-                Sfx.Instance.Play("Lose");
+                Sfx.Instance.Play("Lose2");
                 CoroutineStarter.Run(Player.PlayDeadAnim(1.9f, Direction));
                 GameUi.CloseFlash();
             }

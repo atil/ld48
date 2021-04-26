@@ -215,7 +215,7 @@ namespace Game
 
         public void CloseFlash()
         {
-            Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration);
+            Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration / 2f);
             Flash(_closeFlashInfo, () => SceneManager.LoadScene("End"));
         }
 
