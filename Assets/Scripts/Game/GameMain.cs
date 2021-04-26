@@ -146,7 +146,7 @@ namespace Game
             int amountOfMovement = Mathf.Abs(tile.Index.i - PlayerRowIndex);
             PlayerRowIndex = tile.Index.i;
             PlayerColumnIndex = tile.Index.j;
-            GameUi.SetDepth(PlayerRowIndex);
+            GameUi.SetDepth(PlayerRowIndex, Direction);
 
             if (!OnReturnStage)
             {

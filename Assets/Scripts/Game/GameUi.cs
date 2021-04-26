@@ -43,21 +43,24 @@ namespace Game
         private const int maxDepth = 50; // Source: depths of my ass
 
         private int _currentOxy;
+        private int _depthRecord;
+        private bool _newRecord;
         
         void Start()
         {
             Flash(_openFlashInfo);
             _currentOxy = FindObjectOfType<GameMain>().Oxygen;
 
-            int depthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
+            _depthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
+            _newRecord = false;
             
-            if (depthRecord > 0)
+            if (_depthRecord > 0)
             {
                 _recordArrow.gameObject.SetActive(true);
                 Vector2 pos = _depthArrow.anchoredPosition;
-                pos.y = -540 * (float) (depthRecord) / 50;
+                pos.y = -540 * (float) (_depthRecord) / 50;
                 _recordArrow.anchoredPosition = pos;
-                _recordText.text = depthRecord.ToString();
+                _recordText.text = _depthRecord.ToString();
             }
         }
 
@@ -140,24 +143,52 @@ namespace Game
             }
         }
 
-        public void SetDepth(int depthIndex)
+        public void SetDepth(int depthIndex, GameDirection direction)
         {
-            _depthText.text = (depthIndex + 1).ToString();
-            Vector2 srcPos =_depthArrow.anchoredPosition; 
-            Vector2 pos = _depthArrow.anchoredPosition;
-            pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
-            Vector2 targetPos = pos;
+            if (depthIndex < _depthRecord || direction == GameDirection.Up)
+            {
+                _depthArrow.gameObject.SetActive(true);
+                _depthText.text = (depthIndex + 1).ToString();
+                Vector2 srcPos = _depthArrow.anchoredPosition; 
+                Vector2 pos = srcPos;
+                pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
+                Vector2 targetPos = pos;
             
-            Curve.Tween(SliderMoveCurve,
-                _sliderMoveDuration,
-                t =>
-                {
-                    _depthArrow.anchoredPosition = Vector2.Lerp(srcPos, targetPos, t);
-                },
-                () =>
-                {
-                    _depthArrow.anchoredPosition = targetPos;
-                });
+                Curve.Tween(SliderMoveCurve,
+                    _sliderMoveDuration,
+                    t =>
+                    {
+                        _depthArrow.anchoredPosition = Vector2.Lerp(srcPos, targetPos, t);
+                    },
+                    () =>
+                    {
+                        _depthArrow.anchoredPosition = targetPos;
+                    });
+            }
+            else
+            {
+                _newRecord = true;
+                _recordArrow.gameObject.SetActive(true);
+                _depthArrow.gameObject.SetActive(false);
+                
+                _recordText.text = (depthIndex + 1).ToString();
+                Vector2 srcPos = _recordArrow.anchoredPosition;
+                Vector2 pos = srcPos;
+                pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
+                Vector2 targetPos = pos;
+
+                Curve.Tween(SliderMoveCurve,
+                    _sliderMoveDuration,
+                    t =>
+                    {
+                        _recordArrow.anchoredPosition = Vector2.Lerp(srcPos, targetPos, t);
+                    },
+                    () =>
+                    {
+                        _recordArrow.anchoredPosition = targetPos; 
+                        
+                    });
+            }
         }
 
         public void ShowReturnButton()
@@ -167,8 +198,11 @@ namespace Game
         
         public void HideReturnButton()
         {
-            _flagArrow.gameObject.SetActive(true);
-            _flagArrow.transform.position = _depthArrow.transform.position;
+            if (!_newRecord)
+            {
+                _flagArrow.gameObject.SetActive(true);
+                _flagArrow.transform.position = _depthArrow.transform.position;
+            }
             
             Sfx.Instance.Play("SwimUpButton");
             _returnButton.gameObject.SetActive(false);
