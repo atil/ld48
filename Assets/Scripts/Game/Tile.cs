@@ -62,7 +62,7 @@ namespace Game
                     break;
                 case TileType.End:
                     Sfx.Instance.Play("FirstSplash");
-                    Sfx.Instance.Play("Gem"); //TODO End Game Sfx
+                    Sfx.Instance.Play("Heart");
                     break;
                 default: throw new ArgumentOutOfRangeException();
             }

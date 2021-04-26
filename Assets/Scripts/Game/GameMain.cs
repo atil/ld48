@@ -299,6 +299,8 @@ namespace Game
             {
                 _isMoving = true;
                 ResultData.Instance.HasWon = false;
+                Player.transform.DetachChildren();
+                Sfx.Instance.Play("Lose");
                 CoroutineStarter.Run(Player.PlayDeadAnim(1.9f, Direction));
                 GameUi.CloseFlash();
             }

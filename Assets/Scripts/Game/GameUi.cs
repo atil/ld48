@@ -83,6 +83,11 @@ namespace Game
 
                 for (int i = 0; i < removed; i++)
                 {
+                    if (_oxygenBarParent.childCount <= i)
+                    {
+                        continue;
+                    }
+                    
                     int childIndex = i;
                     GameObject removedGo = _oxygenBarParent.GetChild(childIndex).gameObject;
                     PlayOxygenBarRemove(removedGo);
