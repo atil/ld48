@@ -148,17 +148,15 @@ namespace Game
             PlayerColumnIndex = tile.Index.j;
             GameUi.SetDepth(PlayerRowIndex, Direction);
 
-            if (!OnReturnStage)
-            {
-                Score += (PlayerRowIndex + 1);
-                GameUi.SetScore(Score, (PlayerRowIndex + 1), ScoreType.Depth);
-            }
+            // if (!OnReturnStage)
+            // {
+            //     Score += (PlayerRowIndex + 1);
+            //     GameUi.SetScore(Score, (PlayerRowIndex + 1), ScoreType.Depth);
+            // }
             
             //
             // Tile special effect
             // 
-            
-            int delta = ((PlayerRowIndex / 10) + 1) * 5;
             
             if (tile.Type == TileType.Water)
             {
@@ -176,13 +174,13 @@ namespace Game
             }
             else if (tile.Type == TileType.Gem)
             {
-                Score += delta;
-                GameUi.SetScore(Score, delta, ScoreType.Gem);
+                Score += 1;
+                GameUi.SetScore(Score, 1, ScoreType.Gem);
             }
             else if (tile.Type == TileType.End)
             {
-                Score += delta;
-                GameUi.SetScore(Score, delta, ScoreType.Gem);
+                Score += 1;
+                GameUi.SetScore(Score, 1, ScoreType.Gem);
             }
             else
             {

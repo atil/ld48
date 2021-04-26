@@ -237,10 +237,10 @@ namespace Game
             textUI.gameObject.SetActive(true);
             
             textUI.text = text;
-            Vector3 srcPos = _gemText.transform.position + (Vector3.down * 50);
+            Vector3 srcPos = _gemText.transform.position + (Vector3.down * 50)  + (Vector3.right * 10);
             textUI.transform.position = srcPos;
             
-            Vector3 targetPos = _gemText.transform.position + (Vector3.down * 10);
+            Vector3 targetPos = _gemText.transform.position + (Vector3.down * 10) + (Vector3.right * 10);
 
             yield return Curve.Tween(SliderMoveCurve,
                 _floatingTextDuration,
