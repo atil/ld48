@@ -60,7 +60,7 @@ namespace Game
             {
                 _recordArrow.gameObject.SetActive(true);
                 Vector2 pos = _depthArrow.anchoredPosition;
-                pos.y = -540 * (float) (_depthRecord) / 50;
+                pos.y = -540 * ((float) (_depthRecord) / (50 * _maxDepthCoefficient));
                 _recordArrow.anchoredPosition = pos;
                 _recordText.text = _depthRecord.ToString();
             }
