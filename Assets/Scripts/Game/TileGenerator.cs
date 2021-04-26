@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Game;
+using JamKit;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -50,8 +51,9 @@ public class TileGenerator : MonoBehaviour
             {
                 Tile newTile = i == 0 ? CreateWaterTile() : CreateRandomTile(tempTiles); // First row is water-tile only
                 tempTiles.Add(newTile);
-                result.Add(newTile.GetComponent<Tile>());
             }
+            tempTiles.Shuffle();
+            result.AddRange(tempTiles);
         }
 
         return result;
@@ -65,7 +67,11 @@ public class TileGenerator : MonoBehaviour
         {
             var newTile = CreateRandomTile(tempTiles);
             tempTiles.Add(newTile);
-            result[i] = newTile;
+        }
+        tempTiles.Shuffle();
+        for (int i = 0; i < columnAmount; i++)
+        {
+            result[i] = tempTiles[i];
         }
 
         return result;
@@ -80,7 +86,6 @@ public class TileGenerator : MonoBehaviour
         if (excludedTiles.Count > 3)
         {
             tileData.Type = TileType.Shark;
-            //tileData.Type = (TileType) Random.Range(0, 4);
         }
         else
         {
