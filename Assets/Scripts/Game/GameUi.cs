@@ -41,6 +41,7 @@ namespace Game
         [SerializeField] private Color _oxygenBarRemoveColor;
         
         private const int maxDepth = 50; // Source: depths of my ass
+        private int _maxDepthCoefficient = 1;
 
         private int _currentOxy;
         private int _depthRecord;
@@ -53,6 +54,7 @@ namespace Game
 
             _depthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
             _newRecord = false;
+            _maxDepthCoefficient = (int)Mathf.Pow(2.0f, _depthRecord / 50);
             
             if (_depthRecord > 0)
             {
@@ -150,13 +152,17 @@ namespace Game
 
         public void SetDepth(int depthIndex, GameDirection direction)
         {
+            if (direction == GameDirection.Down)
+            {
+                _maxDepthCoefficient = (int)Mathf.Pow(2.0f, depthIndex / 50);
+            }
             if (depthIndex < _depthRecord || direction == GameDirection.Up)
             {
                 _depthArrow.gameObject.SetActive(true);
                 _depthText.text = (depthIndex + 1).ToString();
                 Vector2 srcPos = _depthArrow.anchoredPosition; 
                 Vector2 pos = srcPos;
-                pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
+                pos.y = -540 * ((float) (depthIndex + 1) / (maxDepth * _maxDepthCoefficient));
                 Vector2 targetPos = pos;
             
                 Curve.Tween(SliderMoveCurve,
@@ -179,7 +185,7 @@ namespace Game
                 _recordText.text = (depthIndex + 1).ToString();
                 Vector2 srcPos = _recordArrow.anchoredPosition;
                 Vector2 pos = srcPos;
-                pos.y = -540 * (float) (depthIndex + 1) / maxDepth;
+                pos.y = -540 * ((float) (depthIndex + 1) / (maxDepth * _maxDepthCoefficient));
                 Vector2 targetPos = pos;
 
                 Curve.Tween(SliderMoveCurve,
