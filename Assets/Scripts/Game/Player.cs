@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using JamKit;
 using UnityEngine;
 
 namespace Game
@@ -16,6 +17,7 @@ namespace Game
         public Transform ExclamationParentUp;
 
         private Coroutine _idleCoroutine;
+        private bool _isExclamationActivePrev;
 
         public void PlayIdleAnim(GameDirection direction)
         {
@@ -117,6 +119,23 @@ namespace Game
             }
 
             Visual.transform.eulerAngles = initEuler;
+
+        }
+
+        public void HandleExclamation(int oxygen, GameDirection direction)
+        {
+            const int oxygenLimit = 3;
+            bool isExclamationActive = oxygen <= oxygenLimit;
+            Exclamation.SetActive(isExclamationActive);
+            Exclamation.transform.SetParent(direction == GameDirection.Down ? ExclamationParentDown : ExclamationParentUp, false);
+
+            if (isExclamationActive
+                && (isExclamationActive != _isExclamationActivePrev))
+            {
+                Sfx.Instance.Play("OxygenWarning");
+            }
+
+            _isExclamationActivePrev = isExclamationActive;
         }
 
     }

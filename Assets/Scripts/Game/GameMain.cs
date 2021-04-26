@@ -193,8 +193,7 @@ namespace Game
 
             Oxygen--;
             GameUi.SetOxygen(Oxygen);
-            Player.Exclamation.SetActive(Oxygen <= 3);
-            Player.Exclamation.transform.SetParent(Direction == GameDirection.Down ? Player.ExclamationParentDown : Player.ExclamationParentUp, false);
+            Player.HandleExclamation(Oxygen, Direction);
 
             Vector3 playerSrc = Player.transform.position;
             Vector3 playerTarget = tile.transform.position;
@@ -332,6 +331,8 @@ namespace Game
             Vector3 scrollAmount = (Direction == GameDirection.Up ? Vector3.up : Vector3.down) * spaceBetweenTiles * amountOfMovement;
             Vector3 cameraSrc = CameraTransform.position;
             Vector3 cameraTarget = cameraSrc + scrollAmount;
+            
+            Player.Exclamation.transform.SetParent(Player.ExclamationParentUp, false);
             
             Curve.Tween(MoveCurve,
                 moveDuration,
