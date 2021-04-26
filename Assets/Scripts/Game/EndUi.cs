@@ -20,7 +20,7 @@ namespace Game
             
             if (ResultData.Instance.HasWon)
             {
-                _titleText.text = "You won!";
+                _titleText.text = Random.value > 0.5f ? "You made it!" : "That was awesome!";
                 _scoreText.gameObject.SetActive(true);
                 _scoreText.text = $"Score: {ResultData.Instance.Score.ToString()}";
             }
