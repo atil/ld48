@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -99,6 +100,20 @@ namespace JamKit
                 () => { _musicAudioSource.volume = 0f; });
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                if (_musicAudioSource.volume > 0.01f)
+                {
+                    _musicAudioSource.volume = 0f;
+                }
+                else
+                {
+                    _musicAudioSource.volume = MusicVolume;
+                }
+            }
+        }
     }
 
 }
