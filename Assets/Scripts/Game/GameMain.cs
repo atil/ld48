@@ -280,7 +280,7 @@ namespace Game
                 _isMoving = true;
                 
                 string playerName = PlayerPrefs.GetString("Name");
-                dreamloLeaderBoard.GetSceneDreamloLeaderboard().AddScore(playerName, PlayerCurrentDepthRecord, Score);
+                dreamloLeaderBoard.GetSceneDreamloLeaderboard().AddScore(playerName, PlayerCurrentDepthRecord * 1000 + Score);
 
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;

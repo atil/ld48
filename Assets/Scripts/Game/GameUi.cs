@@ -52,7 +52,7 @@ namespace Game
             Flash(_openFlashInfo);
             _currentOxy = FindObjectOfType<GameMain>().Oxygen;
 
-            _depthRecord = dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow()[0].score;
+            _depthRecord = dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow()[0].score / 1000;
             _newRecord = false;
             _maxDepthCoefficient = (int)Mathf.Pow(2.0f, _depthRecord / 50);
             

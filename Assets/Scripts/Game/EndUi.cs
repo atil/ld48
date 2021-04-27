@@ -51,9 +51,10 @@ namespace Game
             _highScoreScoreText.text = "";
             for (int i = 1; i <= 5; i++)
             {
-                float hScore = (highScores[i-1].score);
+                int hScore = highScores[i-1].score / 1000;
+                int gem = highScores[i-1].score % 1000;
                 _highScoreNamesText.text += $"{highScores[i - 1].playerName}";
-                _highScoreScoreText.text += $"{highScores[i - 1].score} ({highScores[i - 1].seconds})";
+                _highScoreScoreText.text += $"{hScore} ({gem})";
                 if (i != 5)
                 {
                     _highScoreNamesText.text += "\n";

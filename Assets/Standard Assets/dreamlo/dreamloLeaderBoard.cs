@@ -155,7 +155,7 @@ public class dreamloLeaderBoard : MonoBehaviour {
 
 		List<Score> genericList = new List<Score>(scoreList);
 			
-		genericList.Sort((x, y) => y.score.CompareTo(x.score) == 0 ? y.seconds.CompareTo(x.seconds) :  y.score.CompareTo(x.score));
+		genericList.Sort((x, y) => y.score.CompareTo(x.score));
 		
 		return genericList;
 	}
