@@ -54,13 +54,13 @@ namespace Game
 
             _depthRecord = dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow()[0].score / 1000;
             _newRecord = false;
-            _maxDepthCoefficient = (int)Mathf.Pow(2.0f, _depthRecord / 50);
+            _maxDepthCoefficient = (int) Mathf.Pow(2.0f, _depthRecord / maxDepth);
             
             if (_depthRecord > 0)
             {
                 _recordArrow.gameObject.SetActive(true);
                 Vector2 pos = _depthArrow.anchoredPosition;
-                pos.y = -540 * ((float) (_depthRecord) / (50 * _maxDepthCoefficient));
+                pos.y = -540 * ((float) (_depthRecord + 1) / (maxDepth * _maxDepthCoefficient));
                 _recordArrow.anchoredPosition = pos;
                 _recordText.text = _depthRecord.ToString();
             }
@@ -154,7 +154,7 @@ namespace Game
         {
             if (direction == GameDirection.Down)
             {
-                _maxDepthCoefficient = (int)Mathf.Pow(2.0f, depthIndex / 50);
+                _maxDepthCoefficient = (int)Mathf.Pow(2.0f, Mathf.Max(_depthRecord, depthIndex) / maxDepth);
             }
             if (depthIndex < _depthRecord || direction == GameDirection.Up)
             {
