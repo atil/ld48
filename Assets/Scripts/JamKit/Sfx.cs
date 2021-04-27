@@ -102,7 +102,7 @@ namespace JamKit
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.M))
             {
                 if (_musicAudioSource.volume > 0.01f)
                 {

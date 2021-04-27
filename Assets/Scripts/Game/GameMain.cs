@@ -278,17 +278,9 @@ namespace Game
             if (PlayerRowIndex < 0 && OnReturnStage)
             {
                 _isMoving = true;
-                int previousDepthRecord = PlayerPrefs.GetInt("DepthRecord", 0);
-                int previousHighScore = PlayerPrefs.GetInt("HighScore", 0);
-
-                if (previousDepthRecord <= PlayerCurrentDepthRecord)
-                {
-                    PlayerPrefs.SetInt("DepthRecord", PlayerCurrentDepthRecord);
-                    if (previousHighScore < Score)
-                    {
-                        PlayerPrefs.SetInt("HighScore", Score);
-                    }
-                }
+                
+                string playerName = PlayerPrefs.GetString("Name");
+                dreamloLeaderBoard.GetSceneDreamloLeaderboard().AddScore(playerName, PlayerCurrentDepthRecord, Score);
 
                 ResultData.Instance.HasWon = true;
                 ResultData.Instance.Score = Score;

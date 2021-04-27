@@ -1,4 +1,5 @@
-﻿using JamKit;
+﻿using System.Collections;
+using JamKit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,9 +15,13 @@ namespace Game
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private FlashInfo _openFlashInfo;
         [SerializeField] private FlashInfo _closeFlashInfo;
-
+        
+        [SerializeField] private TextMeshProUGUI _highScoreNamesText;
+        [SerializeField] private TextMeshProUGUI _highScoreScoreText;
+        
         void Start()
         {
+            CoroutineStarter.Run(InitLeaderboard());
             Sfx.Instance.ChangeMusicTrack("MusicSplash", false);
             
             if (ResultData.Instance.HasWon)
@@ -25,7 +30,7 @@ namespace Game
                 _depthText.gameObject.SetActive(true);
                 _depthText.text = $"Depth: {ResultData.Instance.Depth.ToString()}";
                 _scoreText.gameObject.SetActive(true);
-                _scoreText.text = $"Score: {ResultData.Instance.Score.ToString()}";
+                _scoreText.text = $"Gem: {ResultData.Instance.Score.ToString()}";
             }
             else
             {
@@ -36,6 +41,27 @@ namespace Game
             
             Flash(_openFlashInfo);
         }
+        
+        IEnumerator InitLeaderboard()
+        {
+            yield return dreamloLeaderBoard.GetSceneDreamloLeaderboard().GetScores();
+
+            var highScores = dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow();
+            _highScoreNamesText.text = "";
+            _highScoreScoreText.text = "";
+            for (int i = 1; i <= 5; i++)
+            {
+                float hScore = (highScores[i-1].score);
+                _highScoreNamesText.text += $"{highScores[i - 1].playerName}";
+                _highScoreScoreText.text += $"{highScores[i - 1].score} ({highScores[i - 1].seconds})";
+                if (i != 5)
+                {
+                    _highScoreNamesText.text += "\n";
+                    _highScoreScoreText.text += "\n";
+                }
+            }
+        }
+
         
         public void OnClickedPlayButton()
         {
