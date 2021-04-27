@@ -129,11 +129,11 @@ namespace Game
             Exclamation.SetActive(isExclamationActive);
             Exclamation.transform.SetParent(direction == GameDirection.Down ? ExclamationParentDown : ExclamationParentUp, false);
 
-            if (isExclamationActive
-                && (isExclamationActive != _isExclamationActivePrev))
-            {
-                Sfx.Instance.Play("OxygenWarning");
-            }
+            // if (isExclamationActive
+            //     && (isExclamationActive != _isExclamationActivePrev))
+            // {
+            //     Sfx.Instance.Play("OxygenWarning");
+            // }
 
             _isExclamationActivePrev = isExclamationActive;
         }

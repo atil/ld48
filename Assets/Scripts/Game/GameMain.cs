@@ -246,7 +246,10 @@ namespace Game
                 {
                     CameraTransform.position = Vector3.Lerp(cameraSrc, cameraTarget, t);
                 },
-                () => { });
+                () =>
+                {
+                    CameraTransform.position = cameraTarget;
+                });
 
             // Generate new row
 
@@ -340,7 +343,10 @@ namespace Game
                 {
                     CameraTransform.position = Vector3.Lerp(cameraSrc, cameraTarget, t);
                 },
-                () => { });
+                () =>
+                {
+                    CameraTransform.position = cameraTarget;
+                });
 
             
             EndTileRoot.SetActive(true);
