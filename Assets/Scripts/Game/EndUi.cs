@@ -49,13 +49,30 @@ namespace Game
             var highScores = dreamloLeaderBoard.GetSceneDreamloLeaderboard().ToListHighToLow();
             _highScoreNamesText.text = "";
             _highScoreScoreText.text = "";
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 10; i++)
             {
+                string colorText = "";
+                if (i == 1)
+                {
+                    colorText = "<color=#FFCC00>";
+                }
+                else if (i == 2)
+                {
+                    colorText = "<color=#ACC0C1>";
+                }
+                else if (i == 3)
+                {
+                    colorText = "<color=#BF8851>";
+                }
+                else
+                {
+                    colorText = "<color=#8AE0C5>";
+                }
                 int hScore = highScores[i-1].score / 1000;
                 int gem = highScores[i-1].score % 1000;
-                _highScoreNamesText.text += $"{highScores[i - 1].playerName}";
-                _highScoreScoreText.text += $"{hScore} ({gem})";
-                if (i != 5)
+                _highScoreNamesText.text += $"{colorText}{highScores[i - 1].playerName}</color>";
+                _highScoreScoreText.text += $"{colorText}{hScore} ({gem})</color>";
+                if (i != 10)
                 {
                     _highScoreNamesText.text += "\n";
                     _highScoreScoreText.text += "\n";

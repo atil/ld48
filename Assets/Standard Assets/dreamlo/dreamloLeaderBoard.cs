@@ -103,7 +103,7 @@ public class dreamloLeaderBoard : MonoBehaviour {
 	public IEnumerator GetScores()
 	{
 		highScores = "";
-		yield return StartCoroutine(GetRequest(dreamloWebserviceURL +  publicCode  + "/pipe/5"));
+		yield return StartCoroutine(GetRequest(dreamloWebserviceURL +  publicCode  + "/pipe/10"));
 	}
 	
 	void GetSingleScore(string playerName)
