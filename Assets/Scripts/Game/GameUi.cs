@@ -42,6 +42,8 @@ namespace Game
         
         [SerializeField] private Button _refreshButton;
 
+        [SerializeField] private GameObject _signs;
+
         private const int maxDepth = 50; // Source: depths of my ass
         private int _maxDepthCoefficient = 1;
 
@@ -227,6 +229,8 @@ namespace Game
             
             Sfx.Instance.Play("SwimUpButton");
             _returnButton.gameObject.SetActive(false);
+            
+            _signs.SetActive(false);
         }
 
         public void CloseFlash()
