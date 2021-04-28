@@ -30,7 +30,7 @@ namespace Game
         
         public void OnClickedPlayButton()
         {
-            PlayerPrefs.SetString("Name", _inputField.text);
+            PlayerPrefs.SetString("Name", _inputField.text.ToUpper());
             Sfx.Instance.Play("FirstSplash");
             _playButton.interactable = false;
             Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration - 0.1f);

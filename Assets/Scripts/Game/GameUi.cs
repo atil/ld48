@@ -40,6 +40,8 @@ namespace Game
         [SerializeField] private Color _oxygenBarAddColor;
         [SerializeField] private Color _oxygenBarRemoveColor;
         
+        [SerializeField] private Button _refreshButton;
+
         private const int maxDepth = 50; // Source: depths of my ass
         private int _maxDepthCoefficient = 1;
 
@@ -64,6 +66,14 @@ namespace Game
                 _recordArrow.anchoredPosition = pos;
                 _recordText.text = _depthRecord.ToString();
             }
+        }
+
+        public void OnClickRefresh()
+        {
+            Sfx.Instance.Play("FirstSplash");
+            Sfx.Instance.FadeOutMusic(_closeFlashInfo.Duration - 0.1f);
+            _refreshButton.interactable = false;
+            Flash(_closeFlashInfo, () => SceneManager.LoadScene("Game"));
         }
 
         public void SetOxygen(int oxy)
